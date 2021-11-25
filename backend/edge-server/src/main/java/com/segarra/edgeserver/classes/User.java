@@ -1,8 +1,6 @@
 package com.segarra.edgeserver.classes;
 
 
-
-import java.util.Date;
 import java.util.List;
 
 public class User {
@@ -12,8 +10,8 @@ public class User {
     private String username;
     private String email;
     private String platform;
-    private List<Long> games;
-    private List<Long> friends;
+    // private List<Long> games;
+    // private List<Long> friends;
 
     public User() {
     }
@@ -31,13 +29,13 @@ public class User {
         this.games = games;
     }
 
-    public User(String username, String email, String platform, List<Long> games, List<Long> friends) {
+   /* public User(String username, String email, String platform, List<Long> games, List<Long> friends) {
         this.username = username;
         this.email = email;
         this.platform = platform;
         this.games = games;
         this.friends = friends;
-    }
+    } */
 
     public Long getId() {
         return id;
@@ -72,11 +70,11 @@ public class User {
         this.platform = platform;
     }
 
-    public List<Long> getGames() {
+    /* public List<Long> getGames() {
         return games;
     }
 
     public void setGames(List<Long> games) {
         this.games = games;
-    }
+    } */
 }

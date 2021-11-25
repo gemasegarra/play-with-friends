@@ -1,6 +1,7 @@
 package com.segarra.userservice.service.impl;
 
 import com.segarra.userservice.controller.dto.UserDTO;
+import com.segarra.userservice.enums.Platform;
 import com.segarra.userservice.model.User;
 import com.segarra.userservice.repository.UserRepository;
 import com.segarra.userservice.service.interfaces.UserService;
@@ -31,7 +32,7 @@ public class UserServiceI implements UserService {
         if (optionalUserEmail.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email " + user.getEmail() + " is already in use");
         }
-        User createdUser = new User(user.getUsername(), user.getEmail(), user.getPlatform());
+        User createdUser = new User(user.getUsername(), user.getEmail(), Platform.valueOf(user.getPlatform()));
         userRepository.save(createdUser);
         return createdUser.getId();
     }

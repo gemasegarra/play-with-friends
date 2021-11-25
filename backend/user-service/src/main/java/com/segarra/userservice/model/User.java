@@ -1,6 +1,8 @@
 package com.segarra.userservice.model;
 
 
+import com.segarra.userservice.enums.Platform;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,14 +14,14 @@ public class User {
 
     private String username;
     private String email;
-    private String platform;
+    private Platform platform;
     // private List<Long> games;
     // private List<Long> friends;
 
     public User() {
     }
 
-    public User(String username, String email, String platform) {
+    public User(String username, String email, Platform platform) {
         this.username = username;
         this.email = email;
         this.platform = platform;
@@ -65,11 +67,11 @@ public class User {
     }
 
 
-    public String getPlatform() {
+    public Platform getPlatform() {
         return platform;
     }
 
-    public void setPlatform(String platform) {
+    public void setPlatform(Platform platform) {
         this.platform = platform;
     }
 

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.segarra.authservice.controller.interfaces.AuthController;
 
 @RestController
+@CrossOrigin(value = "http://localhost:4200")
 public class AuthControllerI implements AuthController {
 
     @Autowired

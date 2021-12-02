@@ -9,25 +9,23 @@ public class User {
 
     private String username;
     private String email;
-    private String platform;
     // private List<Long> games;
     // private List<Long> friends;
 
     public User() {
     }
 
-    public User(String username, String email, String platform) {
+    public User(String username, String email) {
         this.username = username;
         this.email = email;
-        this.platform = platform;
     }
 
-    public User(String username, String email, String platform, List<Long> games) {
+    /* public User(String username, String email, String platform, List<Long> games) {
         this.username = username;
         this.email = email;
         this.platform = platform;
         this.games = games;
-    }
+    }*/
 
    /* public User(String username, String email, String platform, List<Long> games, List<Long> friends) {
         this.username = username;
@@ -59,15 +57,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-
-    public String getPlatform() {
-        return platform;
-    }
-
-    public void setPlatform(String platform) {
-        this.platform = platform;
     }
 
     /* public List<Long> getGames() {

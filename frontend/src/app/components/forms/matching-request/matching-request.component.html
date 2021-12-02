@@ -1,0 +1,15 @@
+<div class="control">
+    <div class="select">
+
+<select>
+        <option>Choose a game</option>
+        <option *ngFor="let game of games">{{game.name}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Comment:</label>
+    <div class="control">
+      <textarea class="textarea" placeholder="Textarea"></textarea>
+    </div>
+  </div>

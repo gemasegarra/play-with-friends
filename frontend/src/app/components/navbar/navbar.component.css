@@ -1,0 +1,38 @@
+.navigation-bar {
+    display: flex;
+    align-items: center;
+    background:#393e46;
+    padding: 0 30px;
+}
+.container {
+    height: 10vh;
+    background:#393e46;
+    padding: 0 30px;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1rem;
+}
+
+
+#logo {
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    padding: 0 10px;
+    transition: all 0.5s;
+}
+
+a:hover {
+    color: #ffc815;
+}
+
+
+li {
+    display: inline-block;
+}

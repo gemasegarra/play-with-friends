@@ -1,1 +1,14 @@
-<p>matching-request-list works!</p>
+<app-navbar></app-navbar>
+
+<div class="box" *ngFor="let match of matches; let i = index">
+    <div class="card">
+        <div class="card-image">
+            <div class="media-content">
+              <p class="title is-4">{{match.game}}</p>
+              <p class="subtitle is-6">{{match.numberOfPlayers}}
+              </p>
+              <p class="subtitle is-6">{{match.comment}}</p>
+            </div>
+          </div>
+</div>
+</div>

@@ -1,7 +1,6 @@
 package com.segarra.edgeserver.client;
 
 import com.segarra.edgeserver.controller.dto.GameDTO;
-import com.segarra.edgeserver.controller.dto.MatchDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 

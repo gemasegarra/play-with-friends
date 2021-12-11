@@ -1,8 +1,9 @@
 export class Matching {
     constructor(
-    private _game: string,
+    private _game: number,
     private _user: number,
     private _numberOfPlayers: number,
+    private _comment: string
     ){
     }
     public get numberOfPlayers(): number {
@@ -17,11 +18,16 @@ export class Matching {
     public set user(value: number) {
         this._user = value;
     }
-    public get game(): string {
+    public get game(): number {
         return this._game;
     }
-    public set game(value: string) {
+    public set game(value: number) {
         this._game = value;
     }
-    
+    public get comment(): string {
+        return this._comment;
+    }
+    public set comment(value: string) {
+        this._comment = value;
+    }
 }

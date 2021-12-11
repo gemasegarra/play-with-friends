@@ -19,4 +19,7 @@ public interface UserClient {
 
     @GetMapping("/users")
     List<User> findAll();
+
+    @GetMapping("/users/id")
+    Long findIdByName(@RequestParam String username);
 }

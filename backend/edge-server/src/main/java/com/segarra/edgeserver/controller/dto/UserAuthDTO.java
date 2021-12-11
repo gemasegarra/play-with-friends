@@ -1,24 +1,19 @@
 package com.segarra.edgeserver.controller.dto;
 
-import java.util.List;
+
+import javax.validation.constraints.NotNull;
 
 public class UserAuthDTO {
-    private Long id;
+    @NotNull(message = "User name required")
     private String username;
+    @NotNull(message = "Email required")
     private String email;
+    @NotNull(message = "Password name required")
     private String password;
-    private String platform;
 
     public UserAuthDTO() {
     }
 
-
-    public UserAuthDTO(Long id, String username, String email, String password) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 
     public UserAuthDTO(String username, String email, String password) {
         this.username = username;
@@ -41,22 +36,6 @@ public class UserAuthDTO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPlatform() {
-        return platform;
-    }
-
-    public void setPlatform(String platform) {
-        this.platform = platform;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getPassword() {

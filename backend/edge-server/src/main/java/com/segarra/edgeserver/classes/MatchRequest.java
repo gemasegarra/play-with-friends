@@ -2,26 +2,26 @@ package com.segarra.edgeserver.classes;
 
 import java.util.List;
 
-public class Match {
+public class MatchRequest {
 
     private Long id;
-    private String game;
-    private Long user;
+    private Long gameId;
+    private Long userId;
     private Long numberOfPlayers;
     private List<Long> matches;
 
-    public Match() {
+    public MatchRequest() {
     }
 
-    public Match(String game, Long user, Long numberOfPlayers) {
-        this.game = game;
-        this.user = user;
+    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers) {
+        this.gameId = gameId;
+        this.userId = userId;
         this.numberOfPlayers = numberOfPlayers;
     }
 
-    public Match(String game, Long user, Long numberOfPlayers, List<Long> matches) {
-        this.game = game;
-        this.user = user;
+    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers, List<Long> matches) {
+        this.gameId = gameId;
+        this.userId = userId;
         this.numberOfPlayers = numberOfPlayers;
         this.matches = matches;
     }
@@ -34,20 +34,20 @@ public class Match {
         this.id = id;
     }
 
-    public String getGame() {
-        return game;
+    public Long getGameId() {
+        return gameId;
     }
 
-    public void setGame(String game) {
-        this.game = game;
+    public void setGameId(Long gameId) {
+        this.gameId = gameId;
     }
 
-    public Long getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(Long user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getNumberOfPlayers() {

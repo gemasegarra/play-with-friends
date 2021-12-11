@@ -1,36 +1,33 @@
 package com.segarra.matchingservice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name= "match_table")
-public class Match {
+@Table(name= "match_request")
+public class MatchRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String game;
-    private Long username;
+    private Long gameId;
+    private Long userId;
     private Long numberOfPlayers;
-    @OneToMany(mappedBy = "matchId")
-    @JsonBackReference
-    List<MatchUser> matches = new ArrayList<>();
+    @OneToMany(mappedBy = "matchId", fetch = FetchType.EAGER)
+    List<MatchUser> matches;
 
-    public Match() {
+    public MatchRequest() {
     }
 
-    public Match(String game, Long user, Long numberOfPlayers) {
-        this.game = game;
-        this.username = user;
+
+    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers) {
+        this.gameId = gameId;
+        this.userId = userId;
         this.numberOfPlayers = numberOfPlayers;
     }
 
-     public Match(String game, Long user, Long numberOfPlayers, List<MatchUser> matches) {
-        this.game = game;
-        this.username = user;
+    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers, List<MatchUser> matches) {
+        this.gameId = gameId;
+        this.userId = userId;
         this.numberOfPlayers = numberOfPlayers;
         this.matches = matches;
     }
@@ -43,21 +40,14 @@ public class Match {
         this.id = id;
     }
 
-    public String getGame() {
-        return game;
+    public Long getGameId() {
+        return gameId;
     }
 
-    public void setGame(String game) {
-        this.game = game;
+    public void setGameId(Long gameId) {
+        this.gameId = gameId;
     }
 
-    public Long getUser() {
-        return username;
-    }
-
-    public void setUser(Long user) {
-        this.username = user;
-    }
 
     public Long getNumberOfPlayers() {
         return numberOfPlayers;
@@ -73,5 +63,13 @@ public class Match {
 
     public void setMatches(List<MatchUser> matches) {
         this.matches = matches;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

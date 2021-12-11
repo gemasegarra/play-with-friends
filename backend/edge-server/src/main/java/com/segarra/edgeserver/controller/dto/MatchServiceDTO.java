@@ -1,15 +1,15 @@
-package com.segarra.matchingservice.controller.dto;
+package com.segarra.edgeserver.controller.dto;
 
-public class MatchDTO {
+public class MatchServiceDTO {
     private Long gameId;
     private Long userId;
     private Long numberOfPlayers;
     private String comment;
 
-    public MatchDTO() {
+    public MatchServiceDTO() {
     }
 
-    public MatchDTO(Long gameId, Long userId, Long numberOfPlayers, String comment) {
+    public MatchServiceDTO(Long gameId, Long userId, Long numberOfPlayers, String comment) {
         this.gameId = gameId;
         this.userId = userId;
         this.numberOfPlayers = numberOfPlayers;

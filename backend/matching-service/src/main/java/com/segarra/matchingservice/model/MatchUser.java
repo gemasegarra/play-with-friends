@@ -1,36 +1,31 @@
 package com.segarra.matchingservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
 public class MatchUser {
     @Id
-    @Column(name = "id", nullable = false)
-    private Long userId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private Long matchId;
+    private Long matchingRequest;
 
     public MatchUser() {
     }
 
-    public MatchUser(Long userId, Long matchId) {
-        this.userId = userId;
+    public MatchUser(Long matchId, Long matchingRequest) {
         this.matchId = matchId;
+        this.matchingRequest = matchingRequest;
     }
 
     public Long getId() {
-        return userId;
+        return id;
     }
 
     public void setId(Long id) {
-        this.userId = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+        this.id = id;
     }
 
     public Long getMatchId() {
@@ -39,5 +34,13 @@ public class MatchUser {
 
     public void setMatchId(Long matchId) {
         this.matchId = matchId;
+    }
+
+    public Long getMatchingRequest() {
+        return matchingRequest;
+    }
+
+    public void setMatchingRequest(Long matchingRequest) {
+        this.matchingRequest = matchingRequest;
     }
 }

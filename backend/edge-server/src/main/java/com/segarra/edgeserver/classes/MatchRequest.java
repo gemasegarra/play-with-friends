@@ -9,21 +9,26 @@ public class MatchRequest {
     private Long userId;
     private Long numberOfPlayers;
     private List<Long> matches;
+    private String comment;
 
     public MatchRequest() {
     }
 
-    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers) {
+    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers, String comment) {
         this.gameId = gameId;
         this.userId = userId;
         this.numberOfPlayers = numberOfPlayers;
+        this.comment = comment;
+
     }
 
-    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers, List<Long> matches) {
+    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers, List<Long> matches, String comment) {
         this.gameId = gameId;
         this.userId = userId;
         this.numberOfPlayers = numberOfPlayers;
         this.matches = matches;
+        this.comment = comment;
+
     }
 
     public Long getId() {
@@ -64,5 +69,13 @@ public class MatchRequest {
 
     public void setMatches(List<Long> matches) {
         this.matches = matches;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

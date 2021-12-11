@@ -1,16 +1,16 @@
 package com.segarra.matchingservice.service.interfaces;
 
 import com.segarra.matchingservice.controller.dto.MatchDTO;
-import com.segarra.matchingservice.model.Match;
+import com.segarra.matchingservice.model.MatchRequest;
 
 import java.util.List;
 
 public interface MatchingService {
-    Match createMatchRequest(MatchDTO matchDTO);
+    MatchRequest createMatchRequest(MatchDTO matchDTO);
     void deleteMatch(Long id);
-    Match updateMatchRequest(Long id, Long match);
-    List<Match> showAll();
-    Match findMatch(Long id);
+    MatchRequest updateMatchRequest(Long id, Long match);
+    List<MatchRequest> findAll();
+    MatchRequest findMatch(Long id);
 
 
 }

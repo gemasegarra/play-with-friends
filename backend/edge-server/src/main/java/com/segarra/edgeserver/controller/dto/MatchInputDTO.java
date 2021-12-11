@@ -1,17 +1,20 @@
 package com.segarra.edgeserver.controller.dto;
 
-public class MatchDTO {
+public class MatchInputDTO {
     private Long gameId;
     private String user;
     private Long numberOfPlayers;
+    private String comment;
 
-    public MatchDTO() {
+    public MatchInputDTO() {
     }
 
-    public MatchDTO(Long gameId, String user, Long numberOfPlayers) {
+    public MatchInputDTO(Long gameId, String user, Long numberOfPlayers, String comment) {
         this.gameId = gameId;
         this.user = user;
         this.numberOfPlayers = numberOfPlayers;
+        this.comment = comment;
+
     }
 
     public Long getGameId() {
@@ -35,5 +38,13 @@ public class MatchDTO {
 
     public void setNumberOfPlayers(Long numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

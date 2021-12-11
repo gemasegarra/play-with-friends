@@ -3,33 +3,36 @@ package com.segarra.edgeserver.controller.dto;
 import java.util.List;
 
 public class MatchOutputDTO {
-    private String game;
+    private Long gameId;
     private String user;
     private Long numberOfPlayers;
     private List<String> matches;
+    private String comment;
 
     public MatchOutputDTO() {
     }
 
-    public MatchOutputDTO(String game, String user, Long numberOfPlayers) {
-        this.game = game;
+    public MatchOutputDTO(Long gameId, String user, Long numberOfPlayers, String comment) {
+        this.gameId = gameId;
         this.user = user;
         this.numberOfPlayers = numberOfPlayers;
+        this.comment = comment;
     }
 
-    public MatchOutputDTO(String game, String user, Long numberOfPlayers, List<String> matches) {
-        this.game = game;
+    public MatchOutputDTO(Long gameId, String user, Long numberOfPlayers, List<String> matches, String comment) {
+        this.gameId = gameId;
         this.user = user;
         this.numberOfPlayers = numberOfPlayers;
         this.matches = matches;
+        this.comment = comment;
     }
 
-    public String getGame() {
-        return game;
+    public Long getGameId() {
+        return gameId;
     }
 
-    public void setGame(String game) {
-        this.game = game;
+    public void setGameId(Long gameId) {
+        this.gameId = gameId;
     }
 
     public String getUser() {
@@ -54,5 +57,13 @@ public class MatchOutputDTO {
 
     public void setMatches(List<String> matches) {
         this.matches = matches;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

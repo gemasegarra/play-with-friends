@@ -12,6 +12,7 @@ public class MatchRequest {
     private Long gameId;
     private Long userId;
     private Long numberOfPlayers;
+    private String comment;
     @OneToMany(mappedBy = "matchId", fetch = FetchType.EAGER)
     List<MatchUser> matches;
 
@@ -19,16 +20,18 @@ public class MatchRequest {
     }
 
 
-    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers) {
+    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers, String comment) {
         this.gameId = gameId;
         this.userId = userId;
         this.numberOfPlayers = numberOfPlayers;
+        this.comment = comment;
     }
 
-    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers, List<MatchUser> matches) {
+    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers, String comment, List<MatchUser> matches) {
         this.gameId = gameId;
         this.userId = userId;
         this.numberOfPlayers = numberOfPlayers;
+        this.comment = comment;
         this.matches = matches;
     }
 
@@ -71,5 +74,13 @@ public class MatchRequest {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

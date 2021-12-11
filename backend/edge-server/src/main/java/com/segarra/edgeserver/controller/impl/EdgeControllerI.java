@@ -1,10 +1,6 @@
 package com.segarra.edgeserver.controller.impl;
 
-import com.segarra.edgeserver.classes.User;
-import com.segarra.edgeserver.controller.dto.AuthorizationDTO;
-import com.segarra.edgeserver.controller.dto.MatchDTO;
-import com.segarra.edgeserver.controller.dto.MatchOutputDTO;
-import com.segarra.edgeserver.controller.dto.UserAuthDTO;
+import com.segarra.edgeserver.controller.dto.*;
 import com.segarra.edgeserver.controller.interfaces.EdgeController;
 import com.segarra.edgeserver.service.impl.EdgeServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api-v1")
+@CrossOrigin(value = "http://localhost:4200")
 public class EdgeControllerI implements EdgeController {
 
     @Autowired
@@ -28,19 +25,19 @@ public class EdgeControllerI implements EdgeController {
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
-        public void loginUser(@RequestBody AuthorizationDTO user) {
+        public void loginUser(@RequestBody LoginDTO user) {
         edgeService.loginUser(user);
     }
 
     @PostMapping("/matching")
     @ResponseStatus(HttpStatus.CREATED)
-    public MatchOutputDTO createMatch(@RequestBody MatchDTO match) {
-        return edgeService.createMatch(match);
+    public void createMatch(@RequestBody MatchInputDTO match) {
+        edgeService.createMatch(match);
     }
 
     @GetMapping("/matching")
     @ResponseStatus(HttpStatus.OK)
-    public List<MatchDTO> showMatches() {
+    public List<MatchOutputDTO> showMatches() {
         return edgeService.showMatches();
     }
 
@@ -57,7 +54,13 @@ public class EdgeControllerI implements EdgeController {
     }
 
     @PostMapping("/matching/{id}")
-    public MatchOutputDTO updateMatch(@PathVariable Long id, @RequestBody Long match) {
-        return edgeService.updateMatch(id, match);
-    }
+    public void updateMatch(@PathVariable Long id, @RequestBody String matcher) {
+         edgeService.updateMatch(id, matcher);}
+
+    @GetMapping("/games")
+    public List<GameDTO> showAll() {
+        return edgeService.showGames();
+    };
+
+
 }

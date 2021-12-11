@@ -1,27 +1,27 @@
 package com.segarra.edgeserver.client;
 
-import com.segarra.edgeserver.classes.Match;
-import com.segarra.edgeserver.controller.dto.MatchDTO;
+import com.segarra.edgeserver.classes.MatchRequest;
+import com.segarra.edgeserver.controller.dto.MatchInputDTO;
+import com.segarra.edgeserver.controller.dto.MatchServiceDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @FeignClient("matching-service")
 public interface MatchClient {
-    @PostMapping("/matches")
-    MatchDTO createMatchRequest(@RequestBody MatchDTO matchDTO);
+    @PostMapping("/matching")
+    MatchInputDTO createMatchRequest(@RequestBody MatchServiceDTO matchDTO);
 
-    @DeleteMapping("/matches/{id}")
+    @DeleteMapping("/matching/{id}")
     void deleteMatch(@PathVariable Long id);
 
-    @GetMapping("/matches")
-    List<MatchDTO> showAll();
+    @GetMapping("/matching")
+    List<MatchRequest> findAll();
 
-    @GetMapping("/matches/{id}")
-    Match findMatch(@PathVariable Long id);
+    @GetMapping("/matching/{id}")
+    MatchRequest findMatch(@PathVariable Long id);
 
-    @PostMapping("/matches/{id}")
-    Match updateMatch(@PathVariable Long id, @RequestBody Long match);
+    @PostMapping("/matching/{id}")
+    MatchRequest updateMatch(@RequestBody Long matcher, @PathVariable Long id);
 }

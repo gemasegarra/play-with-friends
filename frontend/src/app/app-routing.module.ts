@@ -4,6 +4,7 @@ import { LoginComponent } from './components/forms/login/login.component';
 import { MatchingRequestComponent } from './components/forms/matching-request/matching-request.component';
 import { SignupComponent } from './components/forms/signup/signup.component';
 import { GameListComponent } from './components/games/game-list/game-list.component';
+import { MatchingRequestListComponent } from './components/matching/matching-request-list/matching-request-list.component';
 
 const routes: Routes = [
   
@@ -17,7 +18,9 @@ const routes: Routes = [
   { path: 'games',
     component: GameListComponent},
   { path: 'matching',
-    component: MatchingRequestComponent}
+    component: MatchingRequestComponent},
+  { path: 'matchinglist',
+    component: MatchingRequestListComponent} 
 ];
 
 @NgModule({

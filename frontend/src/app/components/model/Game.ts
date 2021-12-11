@@ -1,10 +1,11 @@
 export class Game {
 
     constructor(
+        private _id: number,
         private _name: string,
         private _image: string,
-        private _rating: string,
-        private _type: Array<String>
+        private _type: Array<String>,
+        private _description: string,
     )
     {}
     public get name(): string {
@@ -20,13 +21,6 @@ export class Game {
     public set image(value: string) {
         this._image = value;
     }
-    
-    public get rating(): string {
-        return this._rating;
-    }
-    public set rating(value: string) {
-        this._rating = value;
-    }
  
     public get type(): Array<String> {
         return this._type;
@@ -34,7 +28,17 @@ export class Game {
     public set type(value: Array<String>) {
         this._type = value;
     }
-  
-
+    public get id(): number {
+        return this._id;
+    }
+    public set id(value: number) {
+        this._id = value;
+    }
+    public get description(): string {
+        return this._description;
+    }
+    public set description(value: string) {
+        this._description = value;
+    }
 
 }

@@ -1,9 +1,10 @@
 package com.segarra.gamesservice.model;
 
-import com.segarra.gamesservice.enums.Platform;
+import com.segarra.gamesservice.enums.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 public class Game {
@@ -15,30 +16,22 @@ public class Game {
     private String name;
     @NotNull(message= "Games must have an image")
     private String image;
-    @Enumerated(value = EnumType.STRING)
-    private Platform platform;
-    private String type;
-    private String rating;
-    // private List<Comment> comments;
+    @Column
+    @Enumerated
+    @ElementCollection(targetClass = Type.class)
+    private List<Type> type;
+    private String description;
 
     public Game() {
     }
 
-    public Game(String name, String image, Platform platform, String type) {
+    public Game(String name, String image, List<Type> type, String description) {
         this.name = name;
         this.image = image;
-        this.platform = platform;
         this.type = type;
-    }
+        this.description = description;
 
-   /* public Game(String name, String image, Platform platform, String type, String rating, List<String> comments) {
-        this.name = name;
-        this.image = image;
-        this.platform = platform;
-        this.type = type;
-        this.rating = rating;
-        this.comments = comments;
-    } */
+    }
 
     public Long getId() {
         return id;
@@ -64,35 +57,19 @@ public class Game {
         this.image = image;
     }
 
-    public Platform getPlatform() {
-        return platform;
-    }
-
-    public void setPlatform(Platform platform) {
-        this.platform = platform;
-    }
-
-    public String getType() {
+    public List<Type> getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(List<Type> type) {
         this.type = type;
     }
 
-    public String getRating() {
-        return rating;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRating(String rating) {
-        this.rating = rating;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
-   /* public List<String> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<String> comments) {
-        this.comments = comments;
-    } */
 }

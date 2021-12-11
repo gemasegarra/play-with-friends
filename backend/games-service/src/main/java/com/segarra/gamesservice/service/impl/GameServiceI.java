@@ -21,7 +21,7 @@ public class GameServiceI implements GameService {
     public Game createGame(Game newGame) {
         Optional<Game> optionalGame = gameRepository.findByName(newGame.getName());
         if(optionalGame.isEmpty()){
-            Game createdGame = new Game(newGame.getName(), newGame.getImage(), newGame.getPlatform(), newGame.getType());
+            Game createdGame = new Game(newGame.getName(), newGame.getImage(), newGame.getType(), newGame.getDescription());
             gameRepository.save(createdGame);
             return  createdGame;
         } throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game with name " + newGame.getName() + " is already registered");
@@ -49,7 +49,7 @@ public class GameServiceI implements GameService {
         if(optionalGame.isPresent()){
             optionalGame.get().setName(updatedGame.getName());
             optionalGame.get().setImage(updatedGame.getImage());
-            optionalGame.get().setPlatform(updatedGame.getPlatform());
+            optionalGame.get().setType(updatedGame.getType());
             return updatedGame;
         } throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found");
     }

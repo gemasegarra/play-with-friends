@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../components/model/User';
@@ -14,10 +14,10 @@ export class LoginService {
 
   login(user: User): Observable<User> {
     const body={
-      name: user.name,
+      username: user.name,
       password: user.password,
       
     };
-    return this.http.post<User>(this.baseUrl + '/login', body)
+    return this.http.post<User>(this.baseUrl + '/login', body);
 }
 }

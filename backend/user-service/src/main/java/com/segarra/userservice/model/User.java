@@ -1,7 +1,7 @@
 package com.segarra.userservice.model;
 
 
-import com.segarra.userservice.enums.Platform;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,33 +14,36 @@ public class User {
 
     private String username;
     private String email;
-    private Platform platform;
-    // private List<Long> games;
-    // private List<Long> friends;
+    @OneToMany(mappedBy = "gameId")
+    @JsonBackReference
+    private List<OwnedGame> games;
+    @OneToMany(mappedBy = "friendId", fetch = FetchType.EAGER)
+    @JsonBackReference
+    private List<Friend> friends;
 
     public User() {
     }
 
-    public User(String username, String email, Platform platform) {
+    public User(String username, String email) {
         this.username = username;
         this.email = email;
-        this.platform = platform;
     }
 
- /*   public User(String username, String email, String platform, List<Long> games) {
+    public User(Long id, String username, String email, List<OwnedGame> games) {
+        this.id = id;
         this.username = username;
         this.email = email;
-        this.platform = platform;
         this.games = games;
     }
 
-    public User(String username, String email, String platform, List<Long> games, List<Long> friends) {
+
+    public User(Long id, String username, String email, List<OwnedGame> games, List<Friend> friends) {
+        this.id = id;
         this.username = username;
         this.email = email;
-        this.platform = platform;
         this.games = games;
         this.friends = friends;
-    }*/
+    }
 
     public Long getId() {
         return id;
@@ -67,27 +70,19 @@ public class User {
     }
 
 
-    public Platform getPlatform() {
-        return platform;
-    }
-
-    public void setPlatform(Platform platform) {
-        this.platform = platform;
-    }
-
- /*   public List<Long> getGames() {
+    public List<OwnedGame> getGames() {
         return games;
     }
 
-    public void setGames(List<Long> games) {
+    public void setGames(List<OwnedGame> games) {
         this.games = games;
     }
 
-    public List<Long> getFriends() {
+    public List<Friend> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<Long> friends) {
+    public void setFriends(List<Friend> friends) {
         this.friends = friends;
-    }*/
+    }
 }

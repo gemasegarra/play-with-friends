@@ -70,8 +70,8 @@ public class UserControllerI implements UserController {
 
     @PostMapping("/users/{id}/games")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<OwnedGame> addGame(@RequestBody Long gameId, @PathVariable Long id) {
-        return userService.addGame(gameId, id);
+    public List<OwnedGame> addGame(@RequestBody String game, @PathVariable Long id) {
+        return userService.addGame(game, id);
     }
 
     @Override

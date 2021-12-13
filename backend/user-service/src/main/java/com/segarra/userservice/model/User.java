@@ -14,7 +14,7 @@ public class User {
 
     private String username;
     private String email;
-    @OneToMany(mappedBy = "gameId")
+    @OneToMany(mappedBy = "game")
     @JsonBackReference
     private List<OwnedGame> games;
     @OneToMany(mappedBy = "friendId", fetch = FetchType.EAGER)

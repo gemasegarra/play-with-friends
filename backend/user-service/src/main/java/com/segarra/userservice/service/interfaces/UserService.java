@@ -17,6 +17,6 @@ public interface UserService {
     List<User> findAll();
     void addFriend(FriendDTO friend, Long id);
     List<Friend> showFriends(Long id);
-    List<OwnedGame> addGame(Long gameId, Long id);
+    List<OwnedGame> addGame(String game, Long username);
     List<OwnedGame> showGames(Long id);
 }

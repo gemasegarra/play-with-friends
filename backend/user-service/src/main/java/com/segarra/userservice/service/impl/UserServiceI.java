@@ -110,12 +110,12 @@ public class UserServiceI implements UserService {
     }
 
     @Override
-    public List<OwnedGame> addGame(Long gameId, Long id) {
-        User user = userRepository.findById(id).orElseThrow(() ->
+    public List<OwnedGame> addGame(String game, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
             new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
         );
         List<OwnedGame> games = user.getGames();
-        games.add(new OwnedGame(id));
+        games.add(new OwnedGame(game));
         return games;
     }
 

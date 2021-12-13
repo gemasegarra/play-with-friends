@@ -21,12 +21,12 @@ public class AuthorizationServiceI implements AuthorizationService {
     @Override
     public void registerUser(Authorization user) {
         Optional<Authorization> registeredUser = authorizationRepository.findById(user.getId());
-        if(registeredUser.isEmpty()) {
+        if (registeredUser.isEmpty()) {
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            Authorization newUser = new Authorization(user.getId(),user.getPassword());
+            Authorization newUser = new Authorization(user.getId(), user.getPassword());
             authorizationRepository.save(newUser);
-           return;
+            return;
         }
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists!");
     }
@@ -34,11 +34,13 @@ public class AuthorizationServiceI implements AuthorizationService {
     @Override
     public void loginUser(Authorization user) {
         Optional<Authorization> registeredUser = authorizationRepository.findById(user.getId());
-        if(registeredUser.isPresent()){
+        if (registeredUser.isPresent()) {
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            if(passwordEncoder.matches(user.getPassword(), registeredUser.get().getPassword())){
-              return;
-            } throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong password");
-        } throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
+            if (passwordEncoder.matches(user.getPassword(), registeredUser.get().getPassword())) {
+                return;
+            }
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong password");
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
     }
 }

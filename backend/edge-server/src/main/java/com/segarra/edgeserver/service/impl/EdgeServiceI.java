@@ -40,11 +40,11 @@ public class EdgeServiceI implements EdgeService {
     @Override
     public void registerUser(UserAuthDTO user) {
         try {
-        UserAuthDTO newUser = new UserAuthDTO (user.getUsername(), user.getEmail(), user.getPassword());
-        Long id = userClient.createUser(newUser);
-        AuthorizationDTO newAuth = new AuthorizationDTO(id, user.getPassword());
-        authClient.registerUser(newAuth);}
-        catch (FeignException e){
+            UserAuthDTO newUser = new UserAuthDTO(user.getUsername(), user.getEmail(), user.getPassword());
+            Long id = userClient.createUser(newUser);
+            AuthorizationDTO newAuth = new AuthorizationDTO(id, user.getPassword());
+            authClient.registerUser(newAuth);
+        } catch (FeignException e) {
             throwResponseStatusExceptionFromClient(e);
         }
     }
@@ -65,8 +65,7 @@ public class EdgeServiceI implements EdgeService {
         try {
             Long userID = userClient.findIdByName(match.getUser());
             matchClient.createMatchRequest(new MatchServiceDTO(match.getGameId(), userID, match.getNumberOfPlayers(), match.getComment()));
-        }
-        catch (FeignException e){
+        } catch (FeignException e) {
             throwResponseStatusExceptionFromClient(e);
         }
     }
@@ -99,7 +98,7 @@ public class EdgeServiceI implements EdgeService {
         MatchOutputDTO matchOutput = new MatchOutputDTO(matchRequest.getId(), matchRequest.getGameId(), game.getName(), user.getUsername(), matchRequest.getNumberOfPlayers(), matchRequest.getComment());
         List<MatcherLongDTO> matchList = matchRequest.getMatches();
         List<String> matches = new ArrayList<>();
-        if(matchList == null){
+        if (matchList == null) {
             matchList = new ArrayList<>();
         }
         for (MatcherLongDTO matchId : matchList) {
@@ -127,21 +126,20 @@ public class EdgeServiceI implements EdgeService {
             User matcherUser = userClient.findById(matcher.getMatcher());
             GameDTO game = gamesClient.findById(matchRequest.getGameId());
             emailClient.sendMail(new EmailDTO(
-                "no-reply@pwf.es",
-                user.getEmail(),
-                matcherUsername.getMatcher() + " has joined your " + game.getName() + " match!",
-                "<p>Hello <b>" + user.getUsername() + "</b>,</p>" +
-                        "<p><b>" + matcherUsername.getMatcher() + "</b> has joined your <b>" + game.getName() + "</b> match!</p>"+
-                        "<p>You can contact " + matcherUsername.getMatcher() + " at <a href=\"mailto:"+matcherUser.getEmail()+"\">" + matcherUser.getEmail() + "</a>.</p>" +
-                        "<p>Enjoy!</p>"
-                ));
-        }
-        catch (FeignException e){
+                    "no-reply@pwf.es",
+                    user.getEmail(),
+                    matcherUsername.getMatcher() + " has joined your " + game.getName() + " match!",
+                    "<p>Hello <b>" + user.getUsername() + "</b>,</p>" +
+                            "<p><b>" + matcherUsername.getMatcher() + "</b> has joined your <b>" + game.getName() + "</b> match!</p>" +
+                            "<p>You can contact " + matcherUsername.getMatcher() + " at <a href=\"mailto:" + matcherUser.getEmail() + "\">" + matcherUser.getEmail() + "</a>.</p>" +
+                            "<p>Enjoy!</p>"
+            ));
+        } catch (FeignException e) {
             throwResponseStatusExceptionFromClient(e);
         }
     }
 
-    public List<GameDTO> showGames(@RequestParam (required = false) Optional<String> type, @RequestParam (required = false)
+    public List<GameDTO> showGames(@RequestParam(required = false) Optional<String> type, @RequestParam(required = false)
             Optional<String> name) {
         return gamesClient.showAll(type.orElse(null), name.orElse(null));
     }
@@ -158,9 +156,10 @@ public class EdgeServiceI implements EdgeService {
     public User showUser(@PathVariable Long id) {
         return userClient.findById(id);
     }
+
     private void throwResponseStatusExceptionFromClient(FeignException e) {
         JsonParser jsonParser = new JacksonJsonParser();
         Map<String, Object> body = jsonParser.parseMap(e.contentUTF8());
-        throw new ResponseStatusException((Integer)body.get("status"), (String)body.get("message"), null);
+        throw new ResponseStatusException((Integer) body.get("status"), (String) body.get("message"), null);
     }
 }

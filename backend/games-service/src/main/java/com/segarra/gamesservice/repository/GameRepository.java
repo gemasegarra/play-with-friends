@@ -11,7 +11,9 @@ import java.util.Optional;
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long> {
     Optional<Game> findByName(String name);
+
     List<Game> findByType(Type type);
+
     List<Game> findByNameContaining(String name);
 
 

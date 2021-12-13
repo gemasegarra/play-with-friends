@@ -24,6 +24,7 @@ public class MatchInputDTO {
     public void setGameId(Long gameId) {
         this.gameId = gameId;
     }
+
     public String getUser() {
         return user;
     }

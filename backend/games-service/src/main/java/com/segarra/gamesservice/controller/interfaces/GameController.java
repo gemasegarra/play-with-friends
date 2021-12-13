@@ -8,10 +8,14 @@ import java.util.Optional;
 
 public interface GameController {
     Game createGame(Game newGame);
-    List<Game> showAll(@RequestParam (required = false) Optional<String> type, @RequestParam (required = false)
+
+    List<Game> showAll(@RequestParam(required = false) Optional<String> type, @RequestParam(required = false)
             Optional<String> name);
+
     Game findGameById(Long id);
-    Game updateGame(Game updatedGame,Long id);
+
+    Game updateGame(Game updatedGame, Long id);
+
     void deleteGame(Long id);
 
 }

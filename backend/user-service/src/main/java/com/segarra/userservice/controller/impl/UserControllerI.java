@@ -49,7 +49,6 @@ public class UserControllerI implements UserController {
     }
 
 
-
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     public List<User> findAll() {

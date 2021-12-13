@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name= "match_request")
+@Table(name = "match_request")
 public class MatchRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -60,7 +60,7 @@ public class MatchRequest {
         this.numberOfPlayers = numberOfPlayers;
     }
 
-   public List<MatchUser> getMatches() {
+    public List<MatchUser> getMatches() {
         return matches;
     }
 

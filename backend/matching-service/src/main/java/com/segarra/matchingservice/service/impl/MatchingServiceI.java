@@ -42,11 +42,11 @@ public class MatchingServiceI implements MatchingService {
     @Override
     public MatchRequest updateMatchRequest(Long id, MatcherDTO match) {
         Optional<MatchRequest> optionalMatch = matchingRepository.findById(id);
-        if(optionalMatch.isPresent()) {
+        if (optionalMatch.isPresent()) {
             Long players = optionalMatch.get().getNumberOfPlayers();
             List<MatchUser> matchesList = optionalMatch.get().getMatches();
-            if(matchesList.size() < players){
-                if(matchesList.isEmpty()) {
+            if (matchesList.size() < players) {
+                if (matchesList.isEmpty()) {
                     matchesList = new ArrayList<>();
                 }
                 MatchUser user = new MatchUser(match.getMatcher(), optionalMatch.get().getId());
@@ -58,14 +58,16 @@ public class MatchingServiceI implements MatchingService {
                 matchingRepository.save(optionalMatch.get());
             } else {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Too many matches for this request!");
-            }return optionalMatch.get();
-        } throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Match not found");
+            }
+            return optionalMatch.get();
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Match not found");
     }
 
     @Override
     public List<MatchRequest> findAll() {
         List<MatchRequest> matches = matchingRepository.findAll();
-        if(matches.isEmpty()){
+        if (matches.isEmpty()) {
             return new ArrayList<>();
         }
         return matches;
@@ -74,8 +76,9 @@ public class MatchingServiceI implements MatchingService {
     @Override
     public MatchRequest findMatch(Long id) {
         Optional<MatchRequest> optionalMatch = matchingRepository.findById(id);
-        if(optionalMatch.isPresent()){
+        if (optionalMatch.isPresent()) {
             return optionalMatch.get();
-        } throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Match not found");
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Match not found");
     }
 }

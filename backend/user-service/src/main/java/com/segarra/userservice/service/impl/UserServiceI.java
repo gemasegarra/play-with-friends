@@ -2,7 +2,6 @@ package com.segarra.userservice.service.impl;
 
 import com.segarra.userservice.controller.dto.FriendDTO;
 import com.segarra.userservice.controller.dto.UserDTO;
-import com.segarra.userservice.enums.Platform;
 import com.segarra.userservice.model.Friend;
 import com.segarra.userservice.model.OwnedGame;
 import com.segarra.userservice.model.User;
@@ -17,7 +16,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceI implements UserService {
@@ -56,7 +54,7 @@ public class UserServiceI implements UserService {
     @Override
     public User findById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
-        if(optionalUser.isEmpty()){
+        if (optionalUser.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
         return optionalUser.get();
@@ -67,7 +65,8 @@ public class UserServiceI implements UserService {
         User findUserIdByName = userRepository.findByUsername(username).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
         );
-        return findUserIdByName.getId();    }
+        return findUserIdByName.getId();
+    }
 
     @Override
     public List<User> findAll() {
@@ -87,15 +86,15 @@ public class UserServiceI implements UserService {
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
         );
 
-            List<Friend> friends= user.getFriends();
-            Friend friendship = new Friend(friendToAdd.getId(), user.getId(), friendToAdd.getUsername());
-            friends.add(friendship);
-            System.out.println(friendship);
-            friendRepository.save(friendship);
-            List<Friend> friends2 = friendToAdd.getFriends();
-            friends2.add(new Friend(user.getId(), friendToAdd.getId(), user.getUsername()));
-            userRepository.save(user);
-            userRepository.save(friendToAdd);
+        List<Friend> friends = user.getFriends();
+        Friend friendship = new Friend(friendToAdd.getId(), user.getId(), friendToAdd.getUsername());
+        friends.add(friendship);
+        System.out.println(friendship);
+        friendRepository.save(friendship);
+        List<Friend> friends2 = friendToAdd.getFriends();
+        friends2.add(new Friend(user.getId(), friendToAdd.getId(), user.getUsername()));
+        userRepository.save(user);
+        userRepository.save(friendToAdd);
 
 
     }
@@ -112,7 +111,7 @@ public class UserServiceI implements UserService {
     @Override
     public List<OwnedGame> addGame(String game, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() ->
-            new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
         );
         List<OwnedGame> games = user.getGames();
         games.add(new OwnedGame(game));

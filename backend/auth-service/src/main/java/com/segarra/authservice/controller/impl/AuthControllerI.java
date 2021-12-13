@@ -1,11 +1,11 @@
 package com.segarra.authservice.controller.impl;
 
+import com.segarra.authservice.controller.interfaces.AuthController;
 import com.segarra.authservice.model.Authorization;
 import com.segarra.authservice.service.impl.AuthorizationServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import com.segarra.authservice.controller.interfaces.AuthController;
 
 @RestController
 @CrossOrigin(value = "http://localhost:4200")

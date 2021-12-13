@@ -8,9 +8,13 @@ import java.util.List;
 
 public interface MatchingService {
     MatchRequest createMatchRequest(MatchDTO matchDTO);
+
     void deleteMatch(Long id);
+
     MatchRequest updateMatchRequest(Long id, MatcherDTO match);
+
     List<MatchRequest> findAll();
+
     MatchRequest findMatch(Long id);
 
 

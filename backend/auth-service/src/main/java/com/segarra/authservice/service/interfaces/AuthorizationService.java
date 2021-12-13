@@ -4,6 +4,7 @@ import com.segarra.authservice.model.Authorization;
 
 public interface AuthorizationService {
 
-    public void registerUser(Authorization user);
-    public void loginUser(Authorization user);
+    void registerUser(Authorization user);
+
+    void loginUser(Authorization user);
 }

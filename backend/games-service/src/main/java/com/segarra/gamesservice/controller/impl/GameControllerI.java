@@ -31,15 +31,15 @@ public class GameControllerI implements GameController {
 
     @GetMapping("/games")
     @ResponseStatus(HttpStatus.OK)
-    public List<Game> showAll(@RequestParam (required = false) Optional<String> type, @RequestParam (required = false)
+    public List<Game> showAll(@RequestParam(required = false) Optional<String> type, @RequestParam(required = false)
             Optional<String> name) {
 
         if (type.isPresent()) {
-            return gameRepository.findByType(Type.valueOf(type.get().toUpperCase()));}
-        else if(name.isPresent()){
+            return gameRepository.findByType(Type.valueOf(type.get().toUpperCase()));
+        } else if (name.isPresent()) {
             return gameRepository.findByNameContaining(name.get());
         }
-            return gameService.showAll();
+        return gameService.showAll();
     }
 
     @GetMapping("/games/{id}")
@@ -54,6 +54,7 @@ public class GameControllerI implements GameController {
         return gameService.updateGame(updatedGame, id);
 
     }
+
     @Override
     public void deleteGame(Long id) {
 

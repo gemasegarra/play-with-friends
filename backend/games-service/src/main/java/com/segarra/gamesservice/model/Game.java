@@ -14,7 +14,7 @@ public class Game {
 
     @NotNull(message = "Games must have a name")
     private String name;
-    @NotNull(message= "Games must have an image")
+    @NotNull(message = "Games must have an image")
     private String image;
     @Column
     @Enumerated

@@ -42,10 +42,10 @@ public class MatchingControllerI implements MatchingController {
 
     @GetMapping("/matching")
     @ResponseStatus(HttpStatus.OK)
-    public List<MatchRequest> findAll(@RequestParam (required = false) Optional<Long> userId, @RequestParam (required = false) Optional<Long> matcherId) {
+    public List<MatchRequest> findAll(@RequestParam(required = false) Optional<Long> userId, @RequestParam(required = false) Optional<Long> matcherId) {
         if (matcherId.isPresent()) {
             return matchingRepository.findByMatcherId(matcherId.get());
-        } else if(userId.isPresent()){
+        } else if (userId.isPresent()) {
             return matchingRepository.findByUserId(userId.get());
         }
         return matchingService.findAll();

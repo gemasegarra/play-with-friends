@@ -1,8 +1,6 @@
 package com.segarra.edgeserver.classes;
 
 
-import java.util.List;
-
 public class User {
 
     private Long id;

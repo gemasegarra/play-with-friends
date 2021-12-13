@@ -11,15 +11,25 @@ import java.util.Optional;
 
 public interface EdgeService {
     void registerUser(UserAuthDTO user);
+
     void loginUser(LoginDTO user);
+
     void createMatch(MatchInputDTO match);
+
     List<MatchOutputDTO> showMatches(@RequestParam(required = false) Optional<String> user, Optional<String> matcher);
+
     MatchOutputDTO showMatch(Long id);
+
     void deleteMatch(Long id);
+
     void updateMatch(Long matchingRequestId, MatcherDTO matcherUsername);
-    List<GameDTO> showGames(@RequestParam (required = false) Optional<String> type, @RequestParam (required = false)
+
+    List<GameDTO> showGames(@RequestParam(required = false) Optional<String> type, @RequestParam(required = false)
             Optional<String> name);
+
     GameDTO showGame(Long id);
+
     Long findIdByName(@RequestParam String username);
+
     User showUser(@PathVariable Long id);
 }

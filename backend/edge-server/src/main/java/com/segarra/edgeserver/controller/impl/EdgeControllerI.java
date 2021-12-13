@@ -27,7 +27,7 @@ public class EdgeControllerI implements EdgeController {
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
-        public void loginUser(@RequestBody LoginDTO user) {
+    public void loginUser(@RequestBody LoginDTO user) {
         edgeService.loginUser(user);
     }
 
@@ -39,7 +39,7 @@ public class EdgeControllerI implements EdgeController {
 
     @GetMapping("/matching")
     @ResponseStatus(HttpStatus.OK)
-    public List<MatchOutputDTO> showMatches(@RequestParam (required = false) Optional<String> user, @RequestParam (required = false) Optional<String> matcher) {
+    public List<MatchOutputDTO> showMatches(@RequestParam(required = false) Optional<String> user, @RequestParam(required = false) Optional<String> matcher) {
         return edgeService.showMatches(user, matcher);
     }
 
@@ -57,10 +57,11 @@ public class EdgeControllerI implements EdgeController {
 
     @PostMapping("/matching/{id}")
     public void updateMatch(@PathVariable Long id, @RequestBody MatcherDTO matcher) {
-         edgeService.updateMatch(id, matcher);}
+        edgeService.updateMatch(id, matcher);
+    }
 
     @GetMapping("/games")
-    public List<GameDTO> showAll(@RequestParam (required = false) Optional<String> type, @RequestParam (required = false)
+    public List<GameDTO> showAll(@RequestParam(required = false) Optional<String> type, @RequestParam(required = false)
             Optional<String> name) {
         return edgeService.showGames(type, name);
     }
@@ -76,7 +77,7 @@ public class EdgeControllerI implements EdgeController {
     }
 
     @GetMapping("/users/{id}")
-    public User showUser(@PathVariable Long id){
+    public User showUser(@PathVariable Long id) {
         return edgeService.showUser(id);
     }
 

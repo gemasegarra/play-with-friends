@@ -10,8 +10,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableEurekaClient
 public class EdgeServerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(EdgeServerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(EdgeServerApplication.class, args);
+    }
 
 }

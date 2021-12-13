@@ -10,8 +10,12 @@ import java.util.Optional;
 
 public interface MatchingController {
     MatchRequest createMatchRequest(MatchDTO matchDTO);
+
     void deleteMatch(Long id);
+
     MatchRequest updateMatchRequest(Long id, MatcherDTO match);
-    List<MatchRequest> findAll(@RequestParam (required = false) Optional<Long> userId, @RequestParam (required = false) Optional<Long> matcherId);
+
+    List<MatchRequest> findAll(@RequestParam(required = false) Optional<Long> userId, @RequestParam(required = false) Optional<Long> matcherId);
+
     MatchRequest findMatch(Long id);
 }

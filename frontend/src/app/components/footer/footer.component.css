@@ -1,0 +1,46 @@
+.navigation-bar {
+    display: flex;
+    align-items: center;
+    background:#e7e7e7;
+    padding: 0 30px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+    margin-top: 3em;
+
+}
+.container {
+    height: 6vh;
+    padding: 0 30px;
+    color: rgb(114, 114, 114);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.7rem;
+}
+
+
+#logo {
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    margin: 1em;
+}
+
+.made{
+    margin: 1em;
+}
+
+a {
+    color: rgb(114, 114, 114);
+
+}
+
+a:visited {
+    color: rgb(114, 114, 114);
+
+}
+
+a:hover {
+    color: #393e46;
+}

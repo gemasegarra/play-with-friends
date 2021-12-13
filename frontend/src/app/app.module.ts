@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { RouterModule } from '@angular/router';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +22,10 @@ import { MatchingRequestListComponent } from './components/matching/matching-req
 import { MatchingRequestCardComponent } from './components/matching/matching-request-card/matching-request-card.component';
 import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
 import { FriendListComponent } from './components/friends/friend-list/friend-list.component';
-import { SearchbarComponent } from './components/searchbar/searchbar.component';
+import { UserComponent } from './components/user/user/user.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FooterComponent } from './components/footer/footer.component';
+import { AboutComponent } from './components/about/about.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +41,9 @@ import { SearchbarComponent } from './components/searchbar/searchbar.component';
     MatchingRequestCardComponent,
     EditProfileComponent,
     FriendListComponent,
-    SearchbarComponent
+    UserComponent,
+    FooterComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +51,10 @@ import { SearchbarComponent } from './components/searchbar/searchbar.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    SweetAlert2Module
+    SweetAlert2Module,
+    RouterModule,
+    MatExpansionModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,20 +1,8 @@
+  <app-navbar></app-navbar>
   <div class="box">
     <p class="title"> Create a matching request:</p>
       <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
 
-        <div class="field">
-          <label class="label">Username</label>
-          <div class="control has-icons-left has-icons-right">
-            <input class="input" type="text" placeholder="" value="" [formControl]="userInput">
-            <span class="icon is-small is-left">
-              <i class="fas fa-user"></i>
-            </span>
-            <!-- <span class="icon is-small is-right">
-              <i class="fas fa-check"></i>
-            </span> -->
-          </div>
-        </div>
-    
       <div class="field">
         <label class="label">Game:</label>
         <div class="control has-icons-left has-icons-right">

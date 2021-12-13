@@ -7,7 +7,7 @@ import { GamesService } from 'src/app/services/games.service';
 import { MatchingService } from 'src/app/services/matching.service';
 import Swal from 'sweetalert2';
 import { Game } from '../../model/Game';
-import { Matching } from '../../model/Matching';
+import { MatchingRequest } from '../../model/MatchingRequest';
 
 @Component({
   selector: 'app-matching-request',
@@ -18,26 +18,25 @@ export class MatchingRequestComponent implements OnInit {
 
   registerForm: FormGroup;
   games: Array<Game> = [];
-  userInput: FormControl;
   numberOfPlayerInput: FormControl;
   gameInput: FormControl;
   commentInput: FormControl;
-  matchRequest!: Matching;
+  matches!: [];
+  matchRequest!: MatchingRequest;
   errorMessage!: string;
   errorStatus!: number;
+  username: any;
 
   constructor(
     private gameList: GamesService,
     private matchingRequest: MatchingService,
     private router: Router
   ) {  
-    this.userInput = new FormControl('', [ Validators.required]);
     this.numberOfPlayerInput = new FormControl('', [Validators.required]);
     this.gameInput = new FormControl('', [Validators.required]);
     this.commentInput = new FormControl('', [Validators.required]);
-
+    this.username = localStorage.getItem('user');
     this.registerForm = new FormGroup({
-      user: this.userInput,
       numberOfPlayer: this.numberOfPlayerInput,
       game: this.gameInput,
       comment: this.commentInput
@@ -50,8 +49,7 @@ export class MatchingRequestComponent implements OnInit {
 }
 
   createMatch(): void {
-    // necesito el id del juego 
-    this.matchRequest = new Matching(this.gameInput.value, this.userInput.value, this.numberOfPlayerInput.value, this.commentInput.value);
+    this.matchRequest = new MatchingRequest(this.gameInput.value, this.username, this.numberOfPlayerInput.value, this.commentInput.value, this.matches);
     console.log(this.matchRequest)
     this.matchingRequest.createMatch(this.matchRequest)
       .pipe(catchError((err: HttpErrorResponse) => {
@@ -61,8 +59,8 @@ export class MatchingRequestComponent implements OnInit {
         throw new Error("error");
       }))
       .subscribe(matchRequest => {
-        //this.alertWithSuccess();
-        // this.router.navigate(['/games']);
+        this.alertWithSuccess();
+        this.router.navigate(['/matchinglist']);
       });
   }
 

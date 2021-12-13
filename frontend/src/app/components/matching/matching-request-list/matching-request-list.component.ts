@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatchingService } from 'src/app/services/matching.service';
-import { Matching } from '../../model/Matching';
+import { MatchingOutput } from '../../model/MatchingOutput';
 
 @Component({
   selector: 'app-matching-request-list',
@@ -9,7 +9,7 @@ import { Matching } from '../../model/Matching';
 })
 export class MatchingRequestListComponent implements OnInit {
 
-  matches: Array<Matching> = [];
+  matches: Array<MatchingOutput> = [];
 
   constructor(
     private matchList: MatchingService

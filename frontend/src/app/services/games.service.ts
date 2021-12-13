@@ -7,16 +7,15 @@ import { Game } from '../components/model/Game';
   providedIn: 'root'
 })
 export class GamesService {
-
   private readonly baseUrl: string = 'http://localhost:8080/api-v1';
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) {}
 
   getGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(this.baseUrl+'/games');
+    return this.http.get<Game[]>(this.baseUrl + '/games');
   }
 
-  getGame(id: number): Observable<Game>{
-    return this.http.get<Game>(`${this.baseUrl}/games/${id}`)
+  getGame(id: number): Observable<Game> {
+    return this.http.get<Game>(`${this.baseUrl}/games/${id}`);
   }
 
   findByName(name: any): Observable<Game[]> {
@@ -26,5 +25,4 @@ export class GamesService {
   findByType(type: any): Observable<Game[]> {
     return this.http.get<Game[]>(`${this.baseUrl}/games/?type=${type}`);
   }
-
 }

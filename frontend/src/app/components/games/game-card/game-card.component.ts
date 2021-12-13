@@ -9,22 +9,15 @@ import { Game } from '../../model/Game';
   styleUrls: ['./game-card.component.css']
 })
 export class GameCardComponent implements OnInit {
-
   game!: Game;
   id!: any;
 
-  constructor(
-    private showGame: GamesService,
-    private route: ActivatedRoute
-  ) { }
+  constructor(private showGame: GamesService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id')
-    console.log(this.id)
-    this.showGame.getGame(this.id).subscribe(dataResult => {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.showGame.getGame(this.id).subscribe((dataResult) => {
       this.game = dataResult;
-      console.log(dataResult)
-  });
-}
-
+    });
+  }
 }

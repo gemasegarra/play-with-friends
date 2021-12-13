@@ -11,46 +11,43 @@ import { UserProfileComponent } from './components/user/user-profile/user-profil
 import { UserComponent } from './components/user/user/user.component';
 
 const routes: Routes = [
-  
-  { path: 'login',
-    component: LoginComponent,
-  },
+  { path: 'login', component: LoginComponent },
   {
     path: 'signup',
-    component: SignupComponent,
+    component: SignupComponent
   },
-  { 
+  {
     path: 'games',
     component: GameListComponent
   },
-  { 
-    path: 'games/:id', 
+  {
+    path: 'games/:id',
     component: GameCardComponent
   },
-  { 
+  {
     path: 'matching',
     component: MatchingRequestComponent
   },
-  { 
+  {
     path: 'matchinglist',
     component: MatchingRequestListComponent
   },
-  { 
+  {
     path: 'matching/:id',
     component: MatchingRequestCardComponent
   },
-  { 
+  {
     path: 'profile',
     component: UserProfileComponent
   },
-  { 
+  {
     path: 'users/:id',
     component: UserComponent
-  },
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

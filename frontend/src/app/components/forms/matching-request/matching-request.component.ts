@@ -15,7 +15,6 @@ import { MatchingRequest } from '../../model/MatchingRequest';
   styleUrls: ['./matching-request.component.css']
 })
 export class MatchingRequestComponent implements OnInit {
-
   registerForm: FormGroup;
   games: Array<Game> = [];
   numberOfPlayerInput: FormControl;
@@ -31,7 +30,7 @@ export class MatchingRequestComponent implements OnInit {
     private gameList: GamesService,
     private matchingRequest: MatchingService,
     private router: Router
-  ) {  
+  ) {
     this.numberOfPlayerInput = new FormControl('', [Validators.required]);
     this.gameInput = new FormControl('', [Validators.required]);
     this.commentInput = new FormControl('', [Validators.required]);
@@ -40,57 +39,57 @@ export class MatchingRequestComponent implements OnInit {
       numberOfPlayer: this.numberOfPlayerInput,
       game: this.gameInput,
       comment: this.commentInput
-  });}
+    });
+  }
 
   ngOnInit(): void {
-    this.gameList.getGames().subscribe(dataResult => {
+    this.gameList.getGames().subscribe((dataResult) => {
       this.games = dataResult;
-  });
-}
+    });
+  }
 
   createMatch(): void {
-    this.matchRequest = new MatchingRequest(this.gameInput.value, this.username, this.numberOfPlayerInput.value, this.commentInput.value, this.matches);
-    console.log(this.matchRequest)
-    this.matchingRequest.createMatch(this.matchRequest)
-      .pipe(catchError((err: HttpErrorResponse) => {
-        this.errorMessage = err.error.message;
-        this.errorStatus = err.error.status;
-        this.errorAlert();
-        throw new Error("error");
-      }))
-      .subscribe(matchRequest => {
+    this.matchRequest = new MatchingRequest(
+      this.gameInput.value,
+      this.username,
+      this.numberOfPlayerInput.value,
+      this.commentInput.value,
+      this.matches
+    );
+    this.matchingRequest
+      .createMatch(this.matchRequest)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.errorMessage = err.error.message;
+          this.errorStatus = err.error.status;
+          this.errorAlert();
+          throw new Error('error');
+        })
+      )
+      .subscribe((matchRequest) => {
         this.alertWithSuccess();
         this.router.navigate(['/matchinglist']);
       });
   }
 
-
-
-
-onSubmit(): void {
-  this.createMatch();
-
-}
-
-errorAlert()  
-  {  
-    Swal.fire({  
-      icon: 'error',  
-      title: 'Matching request creation failed',  
-      text: this.errorMessage,  
-    })  
+  onSubmit(): void {
+    this.createMatch();
   }
 
-  alertWithSuccess(){  
-    Swal.fire({   
-    title:'Match request created!',       
-    icon: 'success',
-    showConfirmButton: false,    
-    timer: 1500 
-  })  
-  } 
+  errorAlert() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Matching request creation failed',
+      text: this.errorMessage
+    });
+  }
+
+  alertWithSuccess() {
+    Swal.fire({
+      title: 'Match request created!',
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
 }
-
-
-
-

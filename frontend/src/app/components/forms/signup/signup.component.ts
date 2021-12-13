@@ -14,75 +14,78 @@ import { UserAuth } from '../../model/UserAuth';
   styleUrls: ['./signup.component.css', '../forms.css']
 })
 export class SignupComponent implements OnInit {
+  registerForm: FormGroup;
+  nameInput: FormControl;
+  emailInput: FormControl;
+  passwordInput: FormControl;
+  passwordConfirmInput: FormControl;
+  user!: UserAuth;
+  errorMessage!: string;
+  errorStatus!: number;
 
-    registerForm: FormGroup;
-    nameInput: FormControl;
-    emailInput: FormControl;
-    passwordInput: FormControl;
-    passwordConfirmInput: FormControl;
-    user!: UserAuth;
-    errorMessage!: string;
-    errorStatus!: number;
-
-  constructor(private signupService: SignupService, private router: Router) { 
-    this.nameInput = new FormControl('', [ Validators.required]);
+  constructor(private signupService: SignupService, private router: Router) {
+    this.nameInput = new FormControl('', [Validators.required]);
     this.passwordInput = new FormControl('', [Validators.required]);
-    this.emailInput = new FormControl('', [Validators.required, Validators.email]);
+    this.emailInput = new FormControl('', [
+      Validators.required,
+      Validators.email
+    ]);
     this.passwordInput = new FormControl('', [Validators.required]);
     this.passwordConfirmInput = new FormControl('', [Validators.required]);
 
-
-    this.registerForm = new FormGroup({
-      name: this.nameInput,
-      email: this.emailInput,
-      password: this.passwordInput
-    }, [CustomValidators.samePassword]);
+    this.registerForm = new FormGroup(
+      {
+        name: this.nameInput,
+        email: this.emailInput,
+        password: this.passwordInput
+      },
+      [CustomValidators.samePassword]
+    );
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   signup() {
-  
-  
-    this.user = new UserAuth(this.nameInput.value, this.emailInput.value, this.passwordInput.value)
-    this.signupService.register(this.user)
-    .pipe(catchError((err: HttpErrorResponse) => {
-      this.errorMessage = err.error.message;
-      this.errorStatus = err.error.status;
-      this.errorAlert();
-      throw new Error("error");
-    }))
-    .subscribe(user => {
-      this.alertWithSuccess();
-      localStorage.setItem('user', this.user.username);
-      this.router.navigate(['/games']);
-
-    });    
+    this.user = new UserAuth(
+      this.nameInput.value,
+      this.emailInput.value,
+      this.passwordInput.value
+    );
+    this.signupService
+      .register(this.user)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.errorMessage = err.error.message;
+          this.errorStatus = err.error.status;
+          this.errorAlert();
+          throw new Error('error');
+        })
+      )
+      .subscribe((user) => {
+        this.alertWithSuccess();
+        localStorage.setItem('user', this.user.username);
+        this.router.navigate(['/games']);
+      });
   }
 
   onSubmit(): void {
-
     this.signup();
-
   }
 
-  errorAlert()  
-  {  
-    Swal.fire({  
-      icon: 'error',  
-      title: 'Login failed',  
-      text: this.errorMessage,  
-    })  
+  errorAlert() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Login failed',
+      text: this.errorMessage
+    });
   }
 
-  alertWithSuccess(){  
-    Swal.fire({   
-    title:'Welcome, ' + this.user.username,       
-    icon: 'success',
-    showConfirmButton: false,  
-    timer: 1500 
-  })  
-  } 
+  alertWithSuccess() {
+    Swal.fire({
+      title: 'Welcome, ' + this.user.username,
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
 }
-

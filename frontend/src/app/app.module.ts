@@ -6,8 +6,6 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { RouterModule } from '@angular/router';
 import { MatExpansionModule } from '@angular/material/expansion';
 
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './components/forms/signup/signup.component';
@@ -43,7 +41,7 @@ import { AboutComponent } from './components/about/about.component';
     FriendListComponent,
     UserComponent,
     FooterComponent,
-    AboutComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -59,4 +57,4 @@ import { AboutComponent } from './components/about/about.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

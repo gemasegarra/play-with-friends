@@ -21,31 +21,25 @@ export class UserComponent implements OnInit {
     private showUser: UserService,
     private route: ActivatedRoute,
     private matchService: MatchingService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id')
-    console.log(this.id)
-    this.showUser.getUser(this.id).subscribe(dataResult => {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.showUser.getUser(this.id).subscribe((dataResult) => {
       this.user = dataResult;
-      console.log(dataResult)
-  });
-  this.findMatchRequests();
-  this.findMatchRequestsJoined();
+    });
+    this.findMatchRequests();
+    this.findMatchRequestsJoined();
+  }
+
+  findMatchRequests(): void {
+    this.matchService.getMatchByUser(this.id).subscribe((data) => {
+      this.matchesCreated = data;
+    });
+  }
+  findMatchRequestsJoined(): void {
+    this.matchService.getMatchByMatcher(this.id).subscribe((data) => {
+      this.matchesJoined = data;
+    });
+  }
 }
-
-
-findMatchRequests(): void{
-  this.matchService.getMatchByUser(this.id).subscribe(data=> {
-   this.matchesCreated = data;
-  })
-}
-findMatchRequestsJoined(): void{
-  this.matchService.getMatchByMatcher(this.id).subscribe(data=> {
-   this.matchesJoined = data;
-  })
-}
-
-}
-
-

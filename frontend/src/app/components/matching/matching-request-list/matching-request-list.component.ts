@@ -8,18 +8,13 @@ import { MatchingOutput } from '../../model/MatchingOutput';
   styleUrls: ['./matching-request-list.component.css']
 })
 export class MatchingRequestListComponent implements OnInit {
-
   matches: Array<MatchingOutput> = [];
 
-  constructor(
-    private matchList: MatchingService
-  ) { }
+  constructor(private matchList: MatchingService) {}
 
   ngOnInit(): void {
-    this.matchList.getMatches().subscribe(dataResult => {
+    this.matchList.getMatches().subscribe((dataResult) => {
       this.matches = dataResult;
-      console.log(dataResult)
-  });
-}
-
+    });
+  }
 }

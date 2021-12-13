@@ -8,17 +8,14 @@ import { UserProfile } from '../components/model/UserProfile';
   providedIn: 'root'
 })
 export class UserService {
-
   private readonly baseUrl: string = 'http://localhost:8080/api-v1';
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) {}
 
-
-  getUser(id: number): Observable<UserProfile>{
-    return this.http.get<UserProfile>(`${this.baseUrl}/users/${id}`)
+  getUser(id: number): Observable<UserProfile> {
+    return this.http.get<UserProfile>(`${this.baseUrl}/users/${id}`);
   }
-  
-  findUserIdByName(name: string): Observable<number>{
-    return this.http.get<number>(`${this.baseUrl}/users/id/?username=${name}`);
 
-}
+  findUserIdByName(name: string): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/users/id/?username=${name}`);
+  }
 }

@@ -13,7 +13,6 @@ import { UserProfile } from '../../model/UserProfile';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-
   username: any;
   userId!: any;
   user!: UserProfile;
@@ -22,9 +21,11 @@ export class UserProfileComponent implements OnInit {
   matchesJoined: Array<MatchingOutput> = [];
   panelOpenState!: boolean;
 
-  constructor(private userService: UserService,
+  constructor(
+    private userService: UserService,
     private matchService: MatchingService,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.username = localStorage.getItem('user');
@@ -33,57 +34,57 @@ export class UserProfileComponent implements OnInit {
     this.findMatchRequestsJoined();
   }
 
-  findUserId(): void{
-    this.userService.findUserIdByName(this.username).subscribe(data => {
+  findUserId(): void {
+    this.userService.findUserIdByName(this.username).subscribe((data) => {
       this.userId = data;
-      console.log(this.userId)
       this.findUser();
-      console.log(this.user + "el user")
-  });
+    });
   }
 
-  findUser(): void{
-    this.userService.getUser(this.userId).subscribe(data => {
+  findUser(): void {
+    this.userService.getUser(this.userId).subscribe((data) => {
       this.user = data;
-      console.log(data + "hola");
-    })
+    });
   }
 
-  findMatchRequests(): void{
-    this.matchService.getMatchByUser(this.user.username).subscribe(data=> {
-     this.matchesCreated = data;
-    })
+  findMatchRequests(): void {
+    this.matchService.getMatchByUser(this.user.username).subscribe((data) => {
+      this.matchesCreated = data;
+    });
   }
-  findMatchRequestsJoined(): void{
-    this.matchService.getMatchByMatcher(this.user.username).subscribe(data=> {
-     this.matchesJoined = data;
-    })
+  findMatchRequestsJoined(): void {
+    this.matchService
+      .getMatchByMatcher(this.user.username)
+      .subscribe((data) => {
+        this.matchesJoined = data;
+      });
   }
 
-  deleteAlert(id: number): void{
+  deleteAlert(id: number): void {
     Swal.fire({
       title: 'Are you sure you want to delete this match request?',
       showDenyButton: true,
       confirmButtonText: 'Cancel',
-      denyButtonText: 'Yes! Delete it!',
+      denyButtonText: 'Yes! Delete it!'
     }).then((result) => {
       if (result.isDenied) {
-        Swal.fire('Match deleted!', '', 'success')
+        Swal.fire('Match deleted!', '', 'success');
         this.deleteMatch(id);
         this.router.navigate(['/matchinglist']);
         this.reloadPage();
       }
-    })
-    }
-    
-    deleteMatch(id: number): void{
-      this.matchService.deleteMatch(id).subscribe(()=>{
-      console.log('match deleted')});
-      }
+    });
+  }
 
-      reloadPage() {
-        setTimeout(()=>{
-          window.location.reload();
-        }, 100);
-    }
+  deleteMatch(id: number): void {
+    this.matchService.deleteMatch(id).subscribe(() => {
+      console.log('match deleted');
+    });
+  }
+
+  reloadPage() {
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
+  }
 }

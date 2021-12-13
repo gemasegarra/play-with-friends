@@ -18,3 +18,21 @@
 .title{
     margin-bottom: 2em;
 }
+
+#ybutton {
+    margin-bottom: 1em;
+    margin-top: 1em;
+    margin-left: auto;
+
+    background-color:#ffdc6a;
+    color: #393e46;
+}
+
+#ybutton:hover {
+    background-color:#ffc815;
+    color: #393e46;
+}
+
+footer{
+    margin-top: 2em;
+}

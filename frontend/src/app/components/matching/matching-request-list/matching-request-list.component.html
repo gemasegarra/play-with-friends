@@ -9,8 +9,10 @@
           <p class="subtitle is-6">Created by {{match.user}}</p>
           <p class="subtitle is-6">Looking for {{match.numberOfPlayers}} players
           </p>
-          <div class="box"><p class="subtitle is-6">{{match.comment}}</p></div>
-          Users that joined: <p class="subtitle is-6">{{match.matches}}</p>
+          <p *ngIf="!match.matches?.length">Looks like none has joined yet 😢 </p> <p *ngIf="match.matches?.length" class="subtitle is-6">Users that joined: {{match.matches}}</p>
+          <footer class="card-footer">    
+          <button id="ybutton" class="button is-primary is-small">See details</button>
+          </footer>
         </div>
 
       </div>

@@ -36,6 +36,7 @@ export class MatchingRequestCardComponent implements OnInit {
 
     this.matchingService.getMatch(this.id).subscribe(dataResult => {
       this.match = dataResult;
+      this.matchers = this.match.matches.length;
       this.matchCreator = this.match.user;
 
   });
@@ -51,8 +52,8 @@ export class MatchingRequestCardComponent implements OnInit {
     }))
     .subscribe(dataResult=>{
       this.alertWithSuccess();
-      this.matchers = this.match.matches.length;
       console.log(dataResult);
+      this.reloadPage();
     })
   }
 
@@ -90,6 +91,7 @@ export class MatchingRequestCardComponent implements OnInit {
         Swal.fire('Match deleted!', '', 'success')
         this.deleteMatch(id);
         this.router.navigate(['/matchinglist']);
+        this.reloadPage();
 
       }
     })
@@ -100,4 +102,9 @@ export class MatchingRequestCardComponent implements OnInit {
       console.log('match deleted')});
       }
 
+      reloadPage() {
+        setTimeout(()=>{
+          window.location.reload();
+        }, 100);
+    }
 }

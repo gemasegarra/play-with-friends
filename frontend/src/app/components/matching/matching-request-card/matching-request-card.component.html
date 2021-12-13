@@ -3,18 +3,19 @@
     <div class="card-image">
         <div class="media-content">
           <p class="title is-4">{{match.game}}</p>
-          <p class="subtitle is-6">Created by           <a [routerLink]="'/users/'+[userId]" (click)="findUserId()">
+          <p class="subtitle is-6">Created by         <a [routerLink]="'/users/'+[userId]" (click)="findUserId()">
             {{match.user}}</a></p>
-          <p class="subtitle is-6">Looking for {{match.numberOfPlayers}} players
+          <p class="subtitle is-6">Looking for <strong>{{match.numberOfPlayers}}</strong> players
           </p>
           <div class="box"><p class="subtitle is-6">{{match.comment}}</p></div>
-          <p class="subtitle is-6">Users that joined: {{match.matches}}</p>
+         <p *ngIf="!match.matches?.length">Looks like none has joined yet 😢</p> <p *ngIf="match.matches?.length" class="subtitle is-6">Users that joined: {{match.matches}}</p>
 
         </div>     
-
-        <button id="ybutton" class="button is-primary" *ngIf="matchers <  match.numberOfPlayers && matcher !== matchCreator"   (click)="joinMatch()">Join match</button>
-        <button *ngIf="matcher == matchCreator" class="button is-danger is-small" (click)="deleteAlert(match.id)">Delete match request</button>
-
+        <button id="ybutton" class="button is-primary" *ngIf="matchers < match.numberOfPlayers && matcher !== matchCreator"   (click)="joinMatch()">Join match</button>
+        <button *ngIf="matcher === matchCreator" class="button is-danger is-small" (click)="deleteAlert(match.id)">Delete match request</button>
+        <div  *ngIf="matchers === match.numberOfPlayers" class="notification is-primary">
+          Looks like this match is full!
+        </div>
       </div>  
       <footer class="card-footer">        
       <a [routerLink]="'/matchinglist'">Back to matching request list <i class="fas fa-arrow-left"></i></a>

@@ -55,6 +55,7 @@ export class SignupComponent implements OnInit {
     }))
     .subscribe(user => {
       this.alertWithSuccess();
+      localStorage.setItem('user', this.user.username);
       this.router.navigate(['/games']);
 
     });    

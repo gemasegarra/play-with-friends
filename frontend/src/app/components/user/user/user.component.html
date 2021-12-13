@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+<div class="box">
+    <div class="title">{{user.username}}'s profile page</div>
+    <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Match requests created by you:
+            </mat-panel-title>
+        
+          </mat-expansion-panel-header>
+          <div *ngFor="let match of matchesCreated; let i = index">
+            <a [routerLink]="'/matching/'+[match.id]"><div class="card">
+                  <div class="card-image">
+                      <div class="media-content">
+                        <p class="title is-4">{{match.game}}</p>
+                        <p class="subtitle is-6">Created by {{match.user}}</p>
+                        <p class="subtitle is-6">Looking for {{match.numberOfPlayers}} players
+                        </p>
+                        <p class="subtitle is-6">{{match.comment}}</p>
+                        Users that joined: <p class="subtitle is-6">{{match.matches}}</p>
+
+                      </div>
+          
+                    </div>          
+          
+          </div> </a>
+          </div>
+          
+        </mat-expansion-panel>
+      </mat-accordion>
+    
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Match requests you joined:
+            </mat-panel-title>
+        
+          </mat-expansion-panel-header>
+          <div *ngFor="let match of matchesJoined; let i = index">
+            <a [routerLink]="'/matching/'+[match.id]"><div class="card">
+                  <div class="card-image">
+                      <div class="media-content">
+                        <p class="title is-4">{{match.game}}</p>
+                        <p class="subtitle is-6">Created by {{match.user}}</p>
+                        <p class="subtitle is-6">Looking for {{match.numberOfPlayers}} players
+                        </p>
+                        <p class="subtitle is-6">{{match.comment}}</p>
+                        Users that joined: <p class="subtitle is-6">{{match.matches}}</p>
+          
+                      </div>
+          
+                    </div>          
+          
+          </div> </a>
+          </div>
+          
+        </mat-expansion-panel>
+      </mat-accordion>
+  </div>

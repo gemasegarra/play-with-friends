@@ -13,7 +13,7 @@ public class MatchRequest {
     private Long userId;
     private Long numberOfPlayers;
     private String comment;
-    @OneToMany(mappedBy = "matchId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "matchingRequest", fetch = FetchType.EAGER)
     List<MatchUser> matches;
 
     public MatchRequest() {

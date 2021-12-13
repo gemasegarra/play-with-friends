@@ -7,21 +7,21 @@ import javax.persistence.Id;
 @Entity
 public class OwnedGame {
     @Id
-    @Column(name = "game_id", nullable = false)
-    private Long gameId;
+    @Column(name = "game_name", nullable = false)
+    private String game;
 
     public OwnedGame() {
     }
 
-    public OwnedGame(Long gameId) {
-        this.gameId = gameId;
+    public OwnedGame(String game) {
+        this.game = game;
     }
 
-    public Long getGameId() {
-        return gameId;
+    public String getGame() {
+        return game;
     }
 
-    public void setGameId(Long id) {
-        this.gameId = id;
+    public void setGame(String game) {
+        this.game = game;
     }
 }

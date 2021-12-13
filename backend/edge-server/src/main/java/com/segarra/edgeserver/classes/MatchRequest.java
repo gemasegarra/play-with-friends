@@ -1,5 +1,7 @@
 package com.segarra.edgeserver.classes;
 
+import com.segarra.edgeserver.controller.dto.MatcherLongDTO;
+
 import java.util.List;
 
 public class MatchRequest {
@@ -8,7 +10,7 @@ public class MatchRequest {
     private Long gameId;
     private Long userId;
     private Long numberOfPlayers;
-    private List<Long> matches;
+    private List<MatcherLongDTO> matches;
     private String comment;
 
     public MatchRequest() {
@@ -22,7 +24,7 @@ public class MatchRequest {
 
     }
 
-    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers, List<Long> matches, String comment) {
+    public MatchRequest(Long gameId, Long userId, Long numberOfPlayers, List<MatcherLongDTO> matches, String comment) {
         this.gameId = gameId;
         this.userId = userId;
         this.numberOfPlayers = numberOfPlayers;
@@ -63,11 +65,11 @@ public class MatchRequest {
         this.numberOfPlayers = numberOfPlayers;
     }
 
-    public List<Long> getMatches() {
+    public List<MatcherLongDTO> getMatches() {
         return matches;
     }
 
-    public void setMatches(List<Long> matches) {
+    public void setMatches(List<MatcherLongDTO> matches) {
         this.matches = matches;
     }
 

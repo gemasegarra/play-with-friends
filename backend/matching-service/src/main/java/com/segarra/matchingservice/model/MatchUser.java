@@ -1,7 +1,5 @@
 package com.segarra.matchingservice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 
 @Entity
@@ -9,14 +7,14 @@ public class MatchUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long matchId;
+    private Long matcher;
     private Long matchingRequest;
 
     public MatchUser() {
     }
 
-    public MatchUser(Long matchId, Long matchingRequest) {
-        this.matchId = matchId;
+    public MatchUser(Long matcher, Long matchingRequest) {
+        this.matcher = matcher;
         this.matchingRequest = matchingRequest;
     }
 
@@ -28,12 +26,12 @@ public class MatchUser {
         this.id = id;
     }
 
-    public Long getMatchId() {
-        return matchId;
+    public Long getMatcher() {
+        return matcher;
     }
 
-    public void setMatchId(Long matchId) {
-        this.matchId = matchId;
+    public void setMatcher(Long matcher) {
+        this.matcher = matcher;
     }
 
     public Long getMatchingRequest() {

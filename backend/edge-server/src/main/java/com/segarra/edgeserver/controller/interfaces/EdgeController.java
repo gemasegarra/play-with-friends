@@ -1,6 +1,9 @@
 package com.segarra.edgeserver.controller.interfaces;
 
 import com.segarra.edgeserver.controller.dto.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -27,4 +30,9 @@ public interface EdgeController {
     GameDTO showGame(Long id);
 
     Long findIdByName(@RequestParam String username);
+
+
+    void updateUser(@PathVariable Long id, @RequestBody DescriptionDTO description);
+
+    String addComment(@PathVariable Long id, @RequestBody CommentDTOInput comment);
 }

@@ -4,6 +4,8 @@ package com.segarra.edgeserver.service.interfaces;
 import com.segarra.edgeserver.classes.User;
 import com.segarra.edgeserver.controller.dto.*;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -32,4 +34,8 @@ public interface EdgeService {
     Long findIdByName(@RequestParam String username);
 
     User showUser(@PathVariable Long id);
+
+    void updateUser(@PathVariable Long id, @RequestBody DescriptionDTO description);
+
+    String addComment(@PathVariable Long id, @RequestBody CommentDTOInput comment);
 }

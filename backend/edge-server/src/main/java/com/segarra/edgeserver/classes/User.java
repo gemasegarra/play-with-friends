@@ -7,6 +7,7 @@ public class User {
 
     private String username;
     private String email;
+    private String description;
     // private List<Long> games;
     // private List<Long> friends;
 
@@ -18,20 +19,11 @@ public class User {
         this.email = email;
     }
 
-    /* public User(String username, String email, String platform, List<Long> games) {
+    public User(String username, String email, String description) {
         this.username = username;
         this.email = email;
-        this.platform = platform;
-        this.games = games;
-    }*/
-
-   /* public User(String username, String email, String platform, List<Long> games, List<Long> friends) {
-        this.username = username;
-        this.email = email;
-        this.platform = platform;
-        this.games = games;
-        this.friends = friends;
-    } */
+        this.description = description;
+    }
 
     public Long getId() {
         return id;
@@ -57,11 +49,11 @@ public class User {
         this.email = email;
     }
 
-    /* public List<Long> getGames() {
-        return games;
+    public String getDescription() {
+        return description;
     }
 
-    public void setGames(List<Long> games) {
-        this.games = games;
-    } */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

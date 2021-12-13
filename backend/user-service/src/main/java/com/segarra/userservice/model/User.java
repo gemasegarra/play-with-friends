@@ -2,6 +2,8 @@ package com.segarra.userservice.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,9 +19,18 @@ public class User {
     @OneToMany(mappedBy = "game")
     @JsonBackReference
     private List<OwnedGame> games;
-    @OneToMany(mappedBy = "friendId", fetch = FetchType.EAGER)
-    @JsonBackReference
+    @OneToMany(mappedBy = "friendId")
     private List<Friend> friends;
+    private String description;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Comment> comments;
+
+    public User(String username, String email, String description) {
+        this.username = username;
+        this.email = email;
+        this.description = description;
+    }
 
     public User() {
     }
@@ -84,5 +95,21 @@ public class User {
 
     public void setFriends(List<Friend> friends) {
         this.friends = friends;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

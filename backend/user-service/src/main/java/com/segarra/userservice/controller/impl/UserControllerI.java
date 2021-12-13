@@ -1,5 +1,7 @@
 package com.segarra.userservice.controller.impl;
 
+import com.segarra.userservice.controller.dto.CommentDTO;
+import com.segarra.userservice.controller.dto.DescriptionDTO;
 import com.segarra.userservice.controller.dto.FriendDTO;
 import com.segarra.userservice.controller.dto.UserDTO;
 import com.segarra.userservice.controller.interfaces.UserController;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(value = "http://localhost:4200")
 public class UserControllerI implements UserController {
 
     @Autowired
@@ -76,5 +79,18 @@ public class UserControllerI implements UserController {
     @Override
     public List<OwnedGame> showGames(@PathVariable Long id) {
         return userService.showGames(id);
+    }
+
+    @PostMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void updateUser(@PathVariable Long id, @RequestBody DescriptionDTO description) {
+        userService.updateUser(id, description);
+    }
+
+    @PostMapping("/users/{id}/comment")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String addComment(@PathVariable Long id, @RequestBody CommentDTO comment) {
+        return userService.addComment(id, comment);
+
     }
 }

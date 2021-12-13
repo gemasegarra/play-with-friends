@@ -1,10 +1,14 @@
 package com.segarra.userservice.service.impl;
 
+import com.segarra.userservice.controller.dto.CommentDTO;
+import com.segarra.userservice.controller.dto.DescriptionDTO;
 import com.segarra.userservice.controller.dto.FriendDTO;
 import com.segarra.userservice.controller.dto.UserDTO;
+import com.segarra.userservice.model.Comment;
 import com.segarra.userservice.model.Friend;
 import com.segarra.userservice.model.OwnedGame;
 import com.segarra.userservice.model.User;
+import com.segarra.userservice.repository.CommentRespository;
 import com.segarra.userservice.repository.FriendRepository;
 import com.segarra.userservice.repository.UserRepository;
 import com.segarra.userservice.service.interfaces.UserService;
@@ -25,6 +29,9 @@ public class UserServiceI implements UserService {
 
     @Autowired
     private FriendRepository friendRepository;
+
+    @Autowired
+    private CommentRespository commentRespository;
 
     @Override
     public Long createUser(UserDTO user) {
@@ -125,6 +132,31 @@ public class UserServiceI implements UserService {
         );
         return user.getGames();
     }
+
+    public void updateUser(Long id, DescriptionDTO description) {
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
+        );
+        user.setDescription(description.getDescription());
+        userRepository.save(user);
+    };
+
+    public String addComment(Long id, CommentDTO comment){
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
+        );
+        User commenter = userRepository.findById(comment.getFriendId()).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
+        );
+        List<Comment> comments = user.getComments();
+        Comment commentToAdd = new Comment(comment.getFriendId(),user.getId(), comment.getComment());
+        comments.add(commentToAdd);
+        userRepository.save(user);
+        commentRespository.save(commentToAdd);
+        return comment.getComment();
+    }
+
+
 
 }
 

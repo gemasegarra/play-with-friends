@@ -61,24 +61,40 @@ public class EdgeControllerI implements EdgeController {
     }
 
     @GetMapping("/games")
+    @ResponseStatus(HttpStatus.OK)
     public List<GameDTO> showAll(@RequestParam(required = false) Optional<String> type, @RequestParam(required = false)
             Optional<String> name) {
         return edgeService.showGames(type, name);
     }
 
     @GetMapping("/games/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public GameDTO showGame(@PathVariable Long id) {
         return edgeService.showGame(id);
     }
 
     @GetMapping("/users/id")
+    @ResponseStatus(HttpStatus.OK)
     public Long findIdByName(@RequestParam String username) {
         return edgeService.findIdByName(username);
     }
 
     @GetMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public User showUser(@PathVariable Long id) {
         return edgeService.showUser(id);
     }
+
+    @PostMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void updateUser(@PathVariable Long id, @RequestBody DescriptionDTO description){
+        edgeService.updateUser(id, description);
+    };
+
+    @PostMapping("/users/{id}/comment")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String addComment(@PathVariable Long id, @RequestBody CommentDTOInput comment){
+        return edgeService.addComment(id, comment);
+    };
 
 }

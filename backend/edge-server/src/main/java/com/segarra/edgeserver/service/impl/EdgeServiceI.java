@@ -11,6 +11,7 @@ import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -156,6 +157,16 @@ public class EdgeServiceI implements EdgeService {
     public User showUser(@PathVariable Long id) {
         return userClient.findById(id);
     }
+
+    public void updateUser(@PathVariable Long id, @RequestBody DescriptionDTO description){
+        userClient.updateUser(id, description);
+    };
+
+    public String addComment(@PathVariable Long id, @RequestBody CommentDTOInput comment){
+        Long commenterId = userClient.findIdByName(comment.getFriend());
+        userClient.addComment(id, new CommentDTO(commenterId, comment.getComment()));
+        return comment.getComment();
+    };
 
     private void throwResponseStatusExceptionFromClient(FeignException e) {
         JsonParser jsonParser = new JacksonJsonParser();

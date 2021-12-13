@@ -1,5 +1,7 @@
 package com.segarra.userservice.service.interfaces;
 
+import com.segarra.userservice.controller.dto.CommentDTO;
+import com.segarra.userservice.controller.dto.DescriptionDTO;
 import com.segarra.userservice.controller.dto.FriendDTO;
 import com.segarra.userservice.controller.dto.UserDTO;
 import com.segarra.userservice.model.Friend;
@@ -28,4 +30,9 @@ public interface UserService {
     List<OwnedGame> addGame(String game, Long username);
 
     List<OwnedGame> showGames(Long id);
+
+    void updateUser(Long id, DescriptionDTO description);
+
+    String addComment(Long id, CommentDTO comment);
+
 }

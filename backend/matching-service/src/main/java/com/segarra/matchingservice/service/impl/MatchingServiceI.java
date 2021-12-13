@@ -1,6 +1,7 @@
 package com.segarra.matchingservice.service.impl;
 
 import com.segarra.matchingservice.controller.dto.MatchDTO;
+import com.segarra.matchingservice.controller.dto.MatcherDTO;
 import com.segarra.matchingservice.model.MatchRequest;
 import com.segarra.matchingservice.model.MatchUser;
 import com.segarra.matchingservice.repository.MatchingRepository;
@@ -39,28 +40,22 @@ public class MatchingServiceI implements MatchingService {
     }
 
     @Override
-    public MatchRequest updateMatchRequest(Long id, Long match) {
+    public MatchRequest updateMatchRequest(Long id, MatcherDTO match) {
         Optional<MatchRequest> optionalMatch = matchingRepository.findById(id);
         if(optionalMatch.isPresent()) {
             Long players = optionalMatch.get().getNumberOfPlayers();
             List<MatchUser> matchesList = optionalMatch.get().getMatches();
-            if(matchesList.isEmpty()) {
-                System.out.println("verdad");
-            matchesList = new ArrayList<>();
-                matchesList.add(new MatchUser(id, match));
-                usersMatchedRepository.save(new MatchUser(id, match));
+            if(matchesList.size() < players){
+                if(matchesList.isEmpty()) {
+                    matchesList = new ArrayList<>();
+                }
+                MatchUser user = new MatchUser(match.getMatcher(), optionalMatch.get().getId());
+                System.out.println(user.getMatcher());
+                matchesList.add(user);
+                System.out.println(matchesList.size());
+                usersMatchedRepository.save(new MatchUser(match.getMatcher(), optionalMatch.get().getId()));
                 optionalMatch.get().setMatches(matchesList);
-                System.out.println(optionalMatch.get().getMatches());
-                System.out.println(matchesList.size() + " lista");
-
                 matchingRepository.save(optionalMatch.get());
-            }
-            else if(matchesList.size() < players){
-                matchesList.add(new MatchUser(id, match));
-                optionalMatch.get().setMatches(matchesList);
-                usersMatchedRepository.save(new MatchUser(id, match));
-                matchingRepository.save(optionalMatch.get());
-
             } else {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Too many matches for this request!");
             }return optionalMatch.get();
@@ -70,7 +65,6 @@ public class MatchingServiceI implements MatchingService {
     @Override
     public List<MatchRequest> findAll() {
         List<MatchRequest> matches = matchingRepository.findAll();
-        System.out.println("foo " + matches.get(0).getMatches().size());
         if(matches.isEmpty()){
             return new ArrayList<>();
         }

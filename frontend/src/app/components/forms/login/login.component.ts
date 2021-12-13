@@ -49,8 +49,9 @@ export class LoginComponent implements OnInit {
         this.errorAlert();
         throw new Error("error");
       }))
-      .subscribe(user => {
+      .subscribe((user) => {
         this.alertWithSuccess();
+        localStorage.setItem('user', this.user.name);
         this.router.navigate(['/games']);
       });
   }

@@ -1,28 +1,23 @@
 package com.segarra.edgeserver.service.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.segarra.edgeserver.classes.MatchRequest;
 import com.segarra.edgeserver.classes.User;
-import com.segarra.edgeserver.client.AuthClient;
-import com.segarra.edgeserver.client.GamesClient;
-import com.segarra.edgeserver.client.MatchClient;
-import com.segarra.edgeserver.client.UserClient;
+import com.segarra.edgeserver.client.*;
 import com.segarra.edgeserver.controller.dto.*;
 import com.segarra.edgeserver.service.interfaces.EdgeService;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.BasicJsonParser;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.boot.json.JsonParser;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class EdgeServiceI implements EdgeService {
@@ -38,6 +33,9 @@ public class EdgeServiceI implements EdgeService {
 
     @Autowired
     private GamesClient gamesClient;
+
+    @Autowired
+    private EmailClient emailClient;
 
     @Override
     public void registerUser(UserAuthDTO user) {
@@ -74,8 +72,14 @@ public class EdgeServiceI implements EdgeService {
     }
 
     @Override
-    public List<MatchOutputDTO> showMatches() {
-        List<MatchRequest> matchRequests = matchClient.findAll();
+    public List<MatchOutputDTO> showMatches(@RequestParam(required = false) Optional<String> user, Optional<String> matcher) {
+        Optional<Long> userId = user.map(userName -> {
+            return userClient.findIdByName(userName);
+        });
+        Optional<Long> matcherId = matcher.map(matcherName -> {
+            return userClient.findIdByName(matcherName);
+        });
+        List<MatchRequest> matchRequests = matchClient.findAll(userId.orElse(null), matcherId.orElse(null));
         List<MatchOutputDTO> output = new ArrayList<>();
         for (MatchRequest matchRequest : matchRequests) {
             output.add(convertMatchRequest(matchRequest));
@@ -85,21 +89,21 @@ public class EdgeServiceI implements EdgeService {
 
     @Override
     public MatchOutputDTO showMatch(Long id) {
-        MatchRequest matchRequest = matchClient.findMatch(id);
+        MatchRequest matchRequest = matchClient.findMatchRequest(id);
         return convertMatchRequest(matchRequest);
     }
 
     private MatchOutputDTO convertMatchRequest(MatchRequest matchRequest) {
-        System.out.println("USER " + matchRequest.getUserId());
         User user = userClient.findById(matchRequest.getUserId());
-        MatchOutputDTO matchOutput = new MatchOutputDTO(matchRequest.getGameId(), user.getUsername(), matchRequest.getNumberOfPlayers(), matchRequest.getComment());
-        List<Long> matchList = matchRequest.getMatches();
+        GameDTO game = gamesClient.findById(matchRequest.getGameId());
+        MatchOutputDTO matchOutput = new MatchOutputDTO(matchRequest.getId(), matchRequest.getGameId(), game.getName(), user.getUsername(), matchRequest.getNumberOfPlayers(), matchRequest.getComment());
+        List<MatcherLongDTO> matchList = matchRequest.getMatches();
         List<String> matches = new ArrayList<>();
         if(matchList == null){
             matchList = new ArrayList<>();
         }
-        for (Long matchId : matchList) {
-            User matchUser = userClient.findById(matchId);
+        for (MatcherLongDTO matchId : matchList) {
+            User matchUser = userClient.findById(matchId.getMatcher());
             matches.add(matchUser.getUsername());
         }
         matchOutput.setMatches(matches);
@@ -112,16 +116,48 @@ public class EdgeServiceI implements EdgeService {
     }
 
     @Override
-    public void updateMatch(Long matchingRequestId, String matcherUsername) {
-       Long matcherId = userClient.findIdByName(matcherUsername);
-       matchClient.updateMatch(matchingRequestId, matcherId);
+    public void updateMatch(Long matchingRequestId, MatcherDTO matcherUsername) {
+        try {
+            Long matcherId = userClient.findIdByName(matcherUsername.getMatcher());
+            MatcherLongDTO matcher = new MatcherLongDTO(matcherId);
+            matchClient.updateMatch(matchingRequestId, matcher);
+
+            MatchRequest matchRequest = matchClient.findMatchRequest(matchingRequestId);
+            User user = userClient.findById(matchRequest.getUserId());
+            User matcherUser = userClient.findById(matcher.getMatcher());
+            GameDTO game = gamesClient.findById(matchRequest.getGameId());
+            emailClient.sendMail(new EmailDTO(
+                "no-reply@pwf.es",
+                user.getEmail(),
+                matcherUsername.getMatcher() + " has joined your " + game.getName() + " match!",
+                "<p>Hello <b>" + user.getUsername() + "</b>,</p>" +
+                        "<p><b>" + matcherUsername.getMatcher() + "</b> has joined your <b>" + game.getName() + "</b> match!</p>"+
+                        "<p>You can contact " + matcherUsername.getMatcher() + " at <a href=\"mailto:"+matcherUser.getEmail()+"\">" + matcherUser.getEmail() + "</a>.</p>" +
+                        "<p>Enjoy!</p>"
+                ));
+        }
+        catch (FeignException e){
+            throwResponseStatusExceptionFromClient(e);
+        }
     }
 
-    public List<GameDTO> showGames() {
-        return gamesClient.showAll();
+    public List<GameDTO> showGames(@RequestParam (required = false) Optional<String> type, @RequestParam (required = false)
+            Optional<String> name) {
+        return gamesClient.showAll(type.orElse(null), name.orElse(null));
     }
 
+    @Override
+    public GameDTO showGame(Long id) {
+        return gamesClient.findById(id);
+    }
 
+    public Long findIdByName(@RequestParam String username) {
+        return userClient.findIdByName(username);
+    }
+
+    public User showUser(@PathVariable Long id) {
+        return userClient.findById(id);
+    }
     private void throwResponseStatusExceptionFromClient(FeignException e) {
         JsonParser jsonParser = new JacksonJsonParser();
         Map<String, Object> body = jsonParser.parseMap(e.contentUTF8());

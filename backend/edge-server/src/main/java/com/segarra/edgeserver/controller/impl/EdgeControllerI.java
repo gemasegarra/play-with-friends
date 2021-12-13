@@ -1,5 +1,6 @@
 package com.segarra.edgeserver.controller.impl;
 
+import com.segarra.edgeserver.classes.User;
 import com.segarra.edgeserver.controller.dto.*;
 import com.segarra.edgeserver.controller.interfaces.EdgeController;
 import com.segarra.edgeserver.service.impl.EdgeServiceI;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api-v1")
@@ -37,8 +39,8 @@ public class EdgeControllerI implements EdgeController {
 
     @GetMapping("/matching")
     @ResponseStatus(HttpStatus.OK)
-    public List<MatchOutputDTO> showMatches() {
-        return edgeService.showMatches();
+    public List<MatchOutputDTO> showMatches(@RequestParam (required = false) Optional<String> user, @RequestParam (required = false) Optional<String> matcher) {
+        return edgeService.showMatches(user, matcher);
     }
 
     @GetMapping("/matching/{id}")
@@ -54,13 +56,28 @@ public class EdgeControllerI implements EdgeController {
     }
 
     @PostMapping("/matching/{id}")
-    public void updateMatch(@PathVariable Long id, @RequestBody String matcher) {
+    public void updateMatch(@PathVariable Long id, @RequestBody MatcherDTO matcher) {
          edgeService.updateMatch(id, matcher);}
 
     @GetMapping("/games")
-    public List<GameDTO> showAll() {
-        return edgeService.showGames();
-    };
+    public List<GameDTO> showAll(@RequestParam (required = false) Optional<String> type, @RequestParam (required = false)
+            Optional<String> name) {
+        return edgeService.showGames(type, name);
+    }
 
+    @GetMapping("/games/{id}")
+    public GameDTO showGame(@PathVariable Long id) {
+        return edgeService.showGame(id);
+    }
+
+    @GetMapping("/users/id")
+    public Long findIdByName(@RequestParam String username) {
+        return edgeService.findIdByName(username);
+    }
+
+    @GetMapping("/users/{id}")
+    public User showUser(@PathVariable Long id){
+        return edgeService.showUser(id);
+    }
 
 }

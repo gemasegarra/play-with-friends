@@ -2,23 +2,26 @@
 <div class="box">
     <div class="title">Profile page</div>
    <h1>Hi, {{username}}!</h1>
+   <div class="notification">"{{user.description}}"
+   </div>
    <mat-accordion>
     <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
+      <mat-expansion-panel-header (click)="findMatchRequests()">
         <mat-panel-title>
           Match requests created by you:
         </mat-panel-title>
     
       </mat-expansion-panel-header>
+      <div *ngIf="!matchesCreated?.length">You have not created any match yet.</div>
       <div *ngFor="let match of matchesCreated; let i = index">
-              <div class="card-image">
+        <div class="card"><div class="card-image">
                   <div class="media-content">
                     <p class="title is-4">{{match.game}}</p>
                     <p class="subtitle is-6">Created by {{match.user}}</p>
                     <p class="subtitle is-6">Looking for {{match.numberOfPlayers}} players
                     </p>
-                    <p class="subtitle is-6">{{match.comment}}</p>
-                    Users that joined: <p class="subtitle is-6">{{match.matches}}</p>
+                    <p *ngIf="!match.matches?.length">Looks like none has joined yet 😢</p> <p *ngIf="match.matches?.length" class="subtitle is-6">Users that joined: {{match.matches}}</p>
+
                     <button class="button is-danger is-small" (click)="deleteAlert(match.id)">Delete match request</button>
 
                   </div>
@@ -26,18 +29,19 @@
                 </div>          
       
       </div> 
-      
+      </div>
     </mat-expansion-panel>
   </mat-accordion>
 
   <mat-accordion>
     <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
+      <mat-expansion-panel-header (click)="findMatchRequestsJoined()">
         <mat-panel-title>
           Match requests you joined:
         </mat-panel-title>
     
       </mat-expansion-panel-header>
+      <div *ngIf="!matchesJoined?.length">You have not joined any match yet!</div>
       <div *ngFor="let match of matchesJoined; let i = index">
         <a [routerLink]="'/matching/'+[match.id]"><div class="card">
               <div class="card-image">
@@ -46,9 +50,11 @@
                     <p class="subtitle is-6">Created by {{match.user}}</p>
                     <p class="subtitle is-6">Looking for {{match.numberOfPlayers}} players
                     </p>
-                    <p class="subtitle is-6">{{match.comment}}</p>
-                    Users that joined: <p class="subtitle is-6">{{match.matches}}</p>
-      
+                    <p *ngIf="!match.matches?.length">Looks like none has joined yet 😢</p> <p *ngIf="match.matches?.length" class="subtitle is-6">Users that joined: {{match.matches}}</p>
+
+                    <footer class="card-footer">    
+                      <button id="ybutton" class="button is-primary is-small">See details</button>
+                      </footer>
                   </div>
       
                 </div>          
@@ -58,4 +64,5 @@
       
     </mat-expansion-panel>
   </mat-accordion>
+  <button id="ybutton" class="button is-primary is-small">Edit profile</button>
   </div>

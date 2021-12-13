@@ -1,0 +1,60 @@
+#ybutton {
+    background-color:#ffdc6a;
+    color: #393e46;
+}
+
+#ybutton:hover {
+    background-color:#ffc815;
+    color: #393e46;
+}
+
+button {
+    margin-top: 1em;
+    margin-bottom:2em;
+}
+
+.card{
+   
+        width: 40%;
+        margin-top: 2em;
+    
+    
+}
+
+.fa-solid{
+    color: black;
+}
+
+a{
+    margin-top: 1em;
+    margin-left: auto;
+    color: black;
+}
+
+a:hover {
+    color: #ffc815;
+}
+
+.subtitle{
+    margin-top: 1em;
+}
+
+.title{
+    margin-bottom: 2em;
+}
+
+.notification{
+    margin-bottom: 2em;
+    margin-top: 1em;
+
+}
+.box {
+    width: 40%;
+    margin: auto;
+    margin-top: 2em;
+    padding: 1em; 
+}
+
+.friend {
+    margin-left:1em;
+}

@@ -30,8 +30,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.username = localStorage.getItem('user');
     this.findUserId();
-    this.findMatchRequests();
-    this.findMatchRequestsJoined();
+
   }
 
   findUserId(): void {
@@ -50,6 +49,7 @@ export class UserProfileComponent implements OnInit {
   findMatchRequests(): void {
     this.matchService.getMatchByUser(this.user.username).subscribe((data) => {
       this.matchesCreated = data;
+      console.log(data)
     });
   }
   findMatchRequestsJoined(): void {
@@ -57,6 +57,7 @@ export class UserProfileComponent implements OnInit {
       .getMatchByMatcher(this.user.username)
       .subscribe((data) => {
         this.matchesJoined = data;
+
       });
   }
 

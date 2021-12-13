@@ -28,17 +28,16 @@ export class UserComponent implements OnInit {
     this.showUser.getUser(this.id).subscribe((dataResult) => {
       this.user = dataResult;
     });
-    this.findMatchRequests();
-    this.findMatchRequestsJoined();
+
   }
 
   findMatchRequests(): void {
-    this.matchService.getMatchByUser(this.id).subscribe((data) => {
+    this.matchService.getMatchByUser(this.user.username).subscribe((data) => {
       this.matchesCreated = data;
     });
   }
   findMatchRequestsJoined(): void {
-    this.matchService.getMatchByMatcher(this.id).subscribe((data) => {
+    this.matchService.getMatchByMatcher(this.user.username).subscribe((data) => {
       this.matchesJoined = data;
     });
   }

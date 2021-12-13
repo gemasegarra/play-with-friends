@@ -2,6 +2,7 @@ export class UserProfile {
   constructor(
     private _id: number,
     private _username: string,
+    private _description: string,
     private _ownedGames: string[],
     private _friend: string[]
   ) {}
@@ -17,6 +18,12 @@ export class UserProfile {
   }
   public set username(value: string) {
     this._username = value;
+  }
+  public get description(): string {
+    return this._description;
+  }
+  public set description(value: string) {
+    this._description = value;
   }
   public get ownedGames(): string[] {
     return this._ownedGames;

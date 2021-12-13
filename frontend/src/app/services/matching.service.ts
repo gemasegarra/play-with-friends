@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Matching } from '../components/model/Matching';
+import { MatchingOutput } from '../components/model/MatchingOutput';
+import { MatchingRequest } from '../components/model/MatchingRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +12,38 @@ export class MatchingService {
   constructor(private http: HttpClient) { }
 
 
-  createMatch(matchRequest: Matching): Observable<Matching> {
+  createMatch(matchRequest: MatchingRequest): Observable<MatchingRequest> {
     const body={
-      game: matchRequest.game,
+      gameId: matchRequest.game,
       user: matchRequest.user,
       numberOfPlayers: matchRequest.numberOfPlayers,
       comment: matchRequest.comment
     };
-    return this.http.post<Matching>(this.baseUrl + '/matching', body);
+    return this.http.post<MatchingRequest>(this.baseUrl + '/matching', body);
 }
-  getMatches(): Observable<Matching[]>{
-    return this.http.get<Matching[]>(this.baseUrl+'/matching') 
+  getMatches(): Observable<MatchingOutput[]>{
+    return this.http.get<MatchingOutput[]>(this.baseUrl+'/matching') 
+  }
+
+  getMatch(id: number): Observable<MatchingOutput> {
+    return this.http.get<MatchingOutput>(`${this.baseUrl}/matching/${id}`);
+  }
+
+  getMatchByMatcher(matcher: string): Observable<MatchingOutput[]>{
+    return this.http.get<MatchingOutput[]>(`${this.baseUrl}/matching?matcher=${matcher}`)
+  }
+  getMatchByUser(user: string): Observable<MatchingOutput[]>{
+    return this.http.get<MatchingOutput[]>(`${this.baseUrl}/matching?user=${user}`)
+  }
+
+  joinMatch(id: number, matcher: string): Observable<any> {
+    const body= {
+      matcher: matcher
+    };
+    return this.http.post(`${this.baseUrl}/matching/${id}`, body);
+  }
+
+  deleteMatch(id: number): Observable<any>{
+    return this.http.delete(`${this.baseUrl}/matching/${id}`)
   }
 }

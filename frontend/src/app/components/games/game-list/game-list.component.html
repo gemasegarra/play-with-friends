@@ -1,25 +1,42 @@
 <app-navbar></app-navbar>
-<app-searchbar></app-searchbar>
-<div class="columns">
-  <div class="column">
+
+<div class="searchfield">
+  <p class="control is-expanded has-icons-right">
+      <input class="input" type="search" placeholder="Search..."         [(ngModel)]="name" (keyup)="searchTitle($event)"
+      />
+      <span class="icon is-small is-right"><i class="fas fa-search"></i></span>
+  
+  </p>
+</div>
+<div class="searchfield">
+  <p class="subtitle is-6">Filter game:</p>
+  
+      <span class="tag is-light" (click)="filterByType('cooperative')">COOPERATIVE</span>
+      <span class="tag is-light" id="PVP" (click)="filterByType('pvp')">PVP</span>
+      <span class="tag is-light" id="PVE" (click)="filterByType('pve')">PVE</span>
+      <span class="tag is-light" id="MMO" (click)="filterByType('mmo')">MMO</span>
+
+
+    </div>
 
 <div class="box" *ngFor="let game of games; let i = index">
+
     <div class="card">
         <div class="card-image">
+          <a [routerLink]="'/games/'+[game.id]">
+
           <figure class="image is-4by3">
             <img src="{{game.image}}" alt="Placeholder image">
-          </figure>
+          </figure></a>
         </div>
             <div class="media-content">
-              <p class="title is-4">{{game.name}}</p>
+              <p class="title is-4">{{game.name}} {{game.id}}</p>
               <p class="subtitle is-6">{{game.description}}
               </p>
-              <a class="tag is-link">{{game.type}}</a>
-            </div>
-          </div>
-</div>
-</div>
-<div class="column">
+              <a class="tag is-light" [id]="game.type" (click)="filterByType([game.type])">{{game.type}}</a>
+              <button [routerLink]="'/matching'" class="button  is-small is-warning">Create match</button>
 
-  <a  [routerLink]="'/matching/'" class="tag is-link">Create match</a></div>
+            </div>
+
+          </div>
 </div>

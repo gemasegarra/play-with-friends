@@ -10,6 +10,7 @@ import { Game } from '../../model/Game';
 export class GameListComponent implements OnInit {
 
   games: Array<Game> = [];
+  name = '';
 
   constructor(
     private gameList: GamesService
@@ -20,6 +21,34 @@ export class GameListComponent implements OnInit {
       this.games = dataResult;
       console.log(dataResult)
   });
+}
+
+searchTitle(event: Event): void {
+  this.gameList.findByName(this.name)
+    .subscribe(
+      data => {
+        this.games = data;
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      });
+}
+
+filterByType(type: any): void {
+  this.gameList.findByType(type)
+  .subscribe(
+    data => {
+      this.games = data;
+      console.log(data);
+    }, 
+    error => {
+      console.log(error)
+    }
+  )
+}
+addToOwnedGames(id: number): void{
+  console.log('added')
 }
 }
   

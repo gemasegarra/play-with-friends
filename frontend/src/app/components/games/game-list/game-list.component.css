@@ -1,9 +1,11 @@
 .box {
-    width: 90%;
+    width: 50%;
+    margin: auto;
 }
 
+
 .card {
-  width: 50%;
+  width: 100%;
   margin-top: 1.5em;
 }
 
@@ -14,4 +16,38 @@
 .tag {
     margin-bottom: 1em;
     margin-left: 1em;
+}
+
+.searchfield {
+    margin: auto;
+    width: 50%;
+}
+
+.control {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.button {
+    float: right;
+
+}
+.button:hover {
+    background-color: #ffc815;
+}
+
+.tag:hover{
+    cursor: pointer;
+}
+
+#PVP{
+    background-color: rgb(243, 93, 93);
+}
+
+#PVE{
+    background-color: rgb(115, 194, 115);
+}
+
+#MMO {
+    background-color: rgb(118, 118, 221);
 }

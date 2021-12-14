@@ -97,6 +97,7 @@ Please notice this project is pretty much unfinished. Lots of things need to imp
 - Improve security wit jwt
 - Password recovery service
 - About page
+- Live deployment 🚀
 
 ## Made by 👩🏻‍💻
 
